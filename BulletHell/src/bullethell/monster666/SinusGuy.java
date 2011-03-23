@@ -85,7 +85,7 @@ public class SinusGuy extends Entity {
                     game.getScore().addScore(100);
                 }else{
                     if(alive){
-                        ((CharReimu)other).hurt();
+                        ((CharReimu)other).loseLife();
                     }
                 }
             }

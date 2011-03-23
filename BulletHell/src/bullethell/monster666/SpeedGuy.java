@@ -52,9 +52,6 @@ public class SpeedGuy extends Entity {
             if (y > Game.getInstance().getHeight()){
                 game.notifyEnemyKilled(this);
             }
-            if (Game.getInstance().getMap().collidesWith(this)){
-                setVerticalMovement(0);
-            }
 	}
 
         /**
@@ -102,7 +99,7 @@ public class SpeedGuy extends Entity {
                     Game.getInstance().getScore().addScore(100);
                 }else{
                     if(alive){
-                        ((CharReimu)other).hurt();
+                        ((CharReimu)other).loseLife();
                         movement(true);
                     }
                 }
