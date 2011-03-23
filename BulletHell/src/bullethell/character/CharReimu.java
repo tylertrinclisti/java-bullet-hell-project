@@ -7,9 +7,6 @@ import java.awt.Point;
 import bullethell.game.Collidable;
 import bullethell.game.Entity;
 import bullethell.game.Game;
-import bullethell.game.PlaceholderPlatform;
-import bullethell.platforms.PlatformContainerEntity;
-import bullethell.platforms.PlatformNode;
 import org.duncan.Library2D.Math2D;
 
 public class CharReimu extends Entity
@@ -35,92 +32,72 @@ public class CharReimu extends Entity
      * @return Ändrade spelarenheten.
      */
     public CharReimu setLives(final int lives)
-     {
+    {
         this.lives = lives;
         return this;
-     }
+    }
 
+    public CharReimu setBombs(final int bombs)
+    {
+        this.bombs = bombs;
+        return this;
+    }
     /**
      * Ökar nuvarande liv hos spelaren med mängden som givits.
      * @param lives Mängden liv att öka med.
      * @return Ändrade spelarenheten.
      */
     public CharReimu addLives(final int lives)
-     {
+    {
+        if(lives <= 0){
+            return this;
+        }
         setLives(getLives() + lives);
-      
-		if (getLives() <= 0)
-			Game.getInstance().notifyDeath();
+	return this;
+    }
 
-		return this;
-     }
+    /**
+     * Ökar nuvarande bomber hos spelaren med mängden som givits
+     * @param bombs Mängden bomber att öka med
+     * @return Ändrade spelarenheten.
+     */
+    public CharReimu addBombs(final int bombs)
+    {
+        if(bombs <= 0){
+            return this;
+        }
+        setBombs(getBombs() + bombs);
+        return this;
+    }
 
     /**
      * Giver mängden liv hos spelaren.
      * @return Mängden liv.
      */
     public final int getLives()
-     {
+    {
         return lives;
-     }
+    }
 
     /**
-     * Skiftar storleken hos spelaren, som kan vara antingen stor eller liten.
-     * Om han är stor, vill ett kall hit vränga detta, och tvärt om.
-     * @return Ändrade spelarenheten.
+     * Giver mängden bomber hos spelaren.
+     * @return Mängden bomber
      */
-    public CharReimu swapSize()
-     {
-        big = !big;
-        if (isBig()) {
-            if (!isRight) {
-                setImage("sprites/characterBigLeft.png");
-
-            }
-            else{
-                setImage("sprites/characterBig.png");
-            }
-            
-            
-
-        }
-        else {
-            if (!isRight) {
-                setImage("sprites/characterSmallLeft.png");
-            }
-            else {
-                setImage("sprites/characterSmall.png");
-                 }
-            
-
-        }
-        return this;
-     }
-
-    /**
-     * Säger om spelaren för stunden är stor.
-     * @return Om stor.
-     */
-    public final boolean isBig()
-     {
-        return big;
-     }
-
+    public final int getBombs()
+    {
+        return bombs;
+    }
     /**
      * Utför rätt ändring vid skada.
      */
-    public void hurt()
+    public void loseLife()
      {
-		if (Game.getInstance().getGameTime() < nextHurt)
-			return;
-
-        if (isBig())
-            swapSize();
-        else
+            if (Game.getInstance().getGameTime() < nextHurt){
+		return;
+            }
             setLives(getLives() - 1);
-
-		if (getLives() <= 0)
-			Game.getInstance().notifyDeath();
+            if (getLives() <= 0)
+		Game.getInstance().notifyDeath();
 
 		// Can't be hurt right after just being hurt.
 		nextHurt = Game.getInstance().getGameTime() + 950;
@@ -191,23 +168,6 @@ public class CharReimu extends Entity
      }
 
     /**
-     * Säger åt spelaren att börja hoppa.
-     */
-    public void startJump()
-     {
-        jump = false;
-     }
-
-    /**
-     * Säger om spelaren kan hoppa eller ej.
-	 * @return True om spelaren kan hoppa
-	 */
-    public final boolean canJump()
-     {
-        return jump;
-     }
-
-    /**
      * Denna händelse kallas var bildruta av spelet.
      */
     @Override
@@ -241,57 +201,15 @@ public class CharReimu extends Entity
             setHorizontalMovement(MOVEMENT.x);
             setVerticalMovement(MOVEMENT.y);
          }
-
-        if(isRight&&dx<0) {
-            if (!isBig()){
-                 setImage("sprites/characterSmallLeft.png");
-
-            }
-            else {
-                 setImage("sprites/characterBigLeft.png");
-                 }
-            isRight = false;
-        }
-        else if(!isRight&&dx>0) {
-          if (!isBig())  {
-                 setImage("sprites/characterSmall.png");
-                         }
-          else {
-              setImage("sprites/characterBig.png");
-               }
-
-         isRight = true;
-         }
     }
     /**
      * Denna händelse orsakas vid möte mellan spelaren och någon annan enhet.
      * @param other Andra enheten i mötet.
      */
     @Override
-    public void collidedWith(Entity other)
-     {
-        if (other instanceof PlaceholderPlatform)
-         {
-            if (y > other.getY() - sprite.getHeight() / 2.f)
-             {
-                if (x > other.getX() - sprite.getWidth() * .8f &&
-                    x < other.getX() + other.getSprite().getWidth())
-                 {
-                    y = other.getY() + other.getSprite().getHeight() + 1.f;
-                    setVerticalMovement(0);
-                 }
-                else
-                    setHorizontalMovement(0);
-             }
-            else
-             {
-                y = other.getY() - sprite.getHeight();
-                setVerticalMovement(0);
-                setSleeping(true);
-                jump = true;
-             }
-         }
-     }
+    public void collidedWith(Entity other){
+        
+    }
 
     // Inställningar.
     private int     lives        = 3;
@@ -299,7 +217,6 @@ public class CharReimu extends Entity
     private float   speed        = .0f,
                     maximalSpeed = 10.f,
                     direction    = -400.0f;
-    private boolean isRight    = true;
     // Styrskiftvärden.
     private boolean speedOrDirectionChanged = false;
 
