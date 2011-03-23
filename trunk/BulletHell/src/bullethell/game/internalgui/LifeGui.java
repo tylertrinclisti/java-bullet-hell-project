@@ -8,7 +8,6 @@ package bullethell.game.internalgui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.util.Random;
 import bullethell.game.Game;
 import bullethell.game.GuiItem;
 
@@ -21,10 +20,7 @@ public class LifeGui extends GuiItem
 	@Override
 	public void draw(Graphics2D g)
 	{
-		if (Game.getInstance().isCheater())
-			g.setColor(Color.BLUE);
-		else
-			g.setColor(Color.RED);
+		g.setColor(Color.RED);
 
 		Font oldfont = g.getFont();
 		g.setFont(oldfont.deriveFont((float) oldfont.getSize() * 3.0f));
@@ -38,10 +34,6 @@ public class LifeGui extends GuiItem
 
 			for (int i = 0; i < chr.length; i++)
 			{
-				if (Game.getInstance().isCheater())
-				{
-					symbol = (char) (new Random(i).nextInt(999 - 32) + 32);
-				}
 				chr[i] = symbol;
 			}
 		}
