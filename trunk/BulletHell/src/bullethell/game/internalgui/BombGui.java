@@ -37,7 +37,7 @@ public class BombGui extends GuiItem
 			chr = new char[] {'N', 'O', 'B', 'O', 'M', 'B', 'S'};
 		}
 
-		g.drawString(new String(chr), Game.GAME_WIDTH / 15, Game.GAME_HEIGHT - (g.getFontMetrics().getHeight() * 2));
+		g.drawString(new String(chr), Game.GAME_WIDTH - Game.GAME_WIDTH + (g.getFontMetrics().getHeight()), Game.GAME_HEIGHT - (g.getFontMetrics().getHeight() * 2));
 
 		g.setFont(oldfont);
 	}
