@@ -7,6 +7,7 @@ import java.awt.Point;
 import bullethell.game.Collidable;
 import bullethell.game.Entity;
 import bullethell.game.Game;
+import bullethell.game.SpriteStore;
 import org.duncan.Library2D.Math2D;
 
 public class CharReimu extends Entity
@@ -18,14 +19,9 @@ public class CharReimu extends Entity
     public CharReimu(final Point position)
      {
         // Utnyttja kallet i föräldern.
-        super("sprites/alien_1.gif",position.x,position.y,true);
+        super("sprites/reimu_1.png",position.x,position.y,true);
      }
 
-    public static void main(String[] args)
-     {
-        CharReimu c = new CharReimu(new Point(8,8));
-     }
-    
     /**
      * Sätter mängden liv hos spelaren.
      * @param lives Mängden liv att sätta.
@@ -244,6 +240,46 @@ public class CharReimu extends Entity
         }
 
         /**
+         * Karaktären byter hela tiden sprite, om den inte går i sidleds.
+         */
+        if(Game.getInstance().getGameTime() > nextSprite && !Game.getInstance().getKeyPressed(1) && !Game.getInstance().getKeyPressed(4)){
+            nextSprite = Game.getInstance().getGameTime() + 80;
+            if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_1.png")){
+                setImage("sprites/reimu_2.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_2.png")){
+                setImage("sprites/reimu_3.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_3.png")){
+                setImage("sprites/reimu_4.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_4.png") ||
+                     this.sprite == SpriteStore.get().getSprite("sprites/reimuL_1.png") ||
+                     this.sprite == SpriteStore.get().getSprite("sprites/reimuR_1.png")){
+                setImage("sprites/reimu_1.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_2.png")){
+                setImage("sprites/reimuL_1.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_3.png")){
+                setImage("sprites/reimuL_2.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_4.png")){
+                setImage("sprites/reimuL_3.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_5.png") ||
+                     this.sprite == SpriteStore.get().getSprite("sprites/reimuL_6.png") ||
+                     this.sprite == SpriteStore.get().getSprite("sprites/reimuL_7.png")){
+                setImage("sprites/reimuL_4.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_2.png")){
+                setImage("sprites/reimuR_1.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_3.png")){
+                setImage("sprites/reimuR_2.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_4.png")){
+                setImage("sprites/reimuR_3.png");
+            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_5.png") ||
+                     this.sprite == SpriteStore.get().getSprite("sprites/reimuR_6.png") ||
+                     this.sprite == SpriteStore.get().getSprite("sprites/reimuR_7.png")){
+                setImage("sprites/reimuR_4.png");
+            }else{
+                setImage("sprites/reimu_1.png");
+            }
+        }
+
+        /**
          * Karaktären måste hålla sig inom ramarna på y axeln
          */
         if (y > Game.getInstance().getHeight() - this.getSprite().getHeight()){
@@ -273,14 +309,15 @@ public class CharReimu extends Entity
     // Inställningar.
     private int     lives        = 3;
     private int     bombs        = 2;
-    private int     power        = 15;
+    private int     power        = 0;
     private float   speed        = .0f;
     private float   maximalSpeed = 10.f;
     private float   direction    = -400.0f;
     // Styrskiftvärden.
     private boolean speedOrDirectionChanged = false;
-
-	// För odödlighet.
-	private long	nextHurt	= 0L;
+    // För sprite byte
+    private long    nextSprite  = 0L;
+    // För odödlighet.
+    private long    nextHurt	= 0L;
  }
 

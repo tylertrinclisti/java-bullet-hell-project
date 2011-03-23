@@ -148,15 +148,6 @@ public abstract class Entity implements Collidable{
 	}
 
 	/**
-	 * Mirrors the image (provided that ref is the mirrored image)
-	 * @param ref The image to load.
-	 * @deprecated Use setImage(String ref) instead
-	 */
-	public void mirror(String ref) {
-			setImage(ref);
-	}
-
-	/**
 	 * Sets the sprite to the new ref.
 	 * @param ref The new image
 	 */
