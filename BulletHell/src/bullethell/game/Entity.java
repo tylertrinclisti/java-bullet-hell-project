@@ -36,9 +36,6 @@ public abstract class Entity implements Collidable{
 	// Whether or not this should be affected by gravity. Default off.
 	private boolean hasGravity = false;
 
-	// Used by gravity to decide whether or not it should have gravity. This is tempoarly and used when player (for example) is standing on a platform. DO NOT CHANGE MANUALLY.
-	private boolean gravitySleeping = false;
-
 	// Thou shall not change this.
 	private long lastdelta;
 
@@ -242,34 +239,6 @@ public abstract class Entity implements Collidable{
 	 * @param other The entity with which this entity collided.
 	 */
 	public void collidedWith(Entity other) {}
-
-	/**
-	 * @return the hasGravity
-	 */
-	public boolean hasGravity() {
-		return hasGravity;
-	}
-
-	/**
-	 * @param hasGravity the hasGravity to set
-	 */
-	public void setGravity(boolean hasGravity) {
-		this.hasGravity = hasGravity;
-	}
-
-	/**
-	 * @return the gravitySleeping
-	 */
-	public boolean isSleeping() {
-		return gravitySleeping;
-	}
-
-	/**
-	 * @param gravitySleeping the gravitySleeping to set
-	 */
-	public void setSleeping(boolean gravitySleeping) {
-		this.gravitySleeping = gravitySleeping;
-	}
 
 	/**
 	 * @return the lastdelta
