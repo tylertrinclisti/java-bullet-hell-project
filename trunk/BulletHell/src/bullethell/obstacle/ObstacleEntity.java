@@ -3,7 +3,7 @@ package bullethell.obstacle;
 
 import bullethell.game.Entity;
 import bullethell.game.Game;
-import bullethell.character.Character;
+import bullethell.character.CharReimu;
 
 /**
  * @author Kenth Gunnarsson
@@ -68,8 +68,8 @@ public class ObstacleEntity extends Entity {
  */
 
     public void collidedWith(Entity other) {
-            if (other instanceof Character) {
-                ((Character)other).hurt();
+            if (other instanceof CharReimu) {
+                ((CharReimu)other).hurt();
             }
 	}
 

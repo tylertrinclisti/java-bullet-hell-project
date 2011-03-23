@@ -3,7 +3,7 @@ package bullethell.monster666;
 import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.game.ShotEntity;
-import bullethell.character.Character;
+import bullethell.character.CharReimu;
 import bullethell.game.SpriteStore;
 
 /**
@@ -78,14 +78,14 @@ public class SinusGuy extends Entity {
 	 * @param other Den andra entiteten,
 	 */
 	public void collidedWith(Entity other) {
-            if (other instanceof Character) {
+            if (other instanceof CharReimu) {
                 if(game.getCharacter().getY() + 25 <= y){
                     alive = false;
                     game.notifyEnemyKilled(this);
                     game.getScore().addScore(100);
                 }else{
                     if(alive){
-                        ((Character)other).hurt();
+                        ((CharReimu)other).hurt();
                     }
                 }
             }
