@@ -18,7 +18,7 @@ public class CharReimu extends Entity
     public CharReimu(final Point position)
      {
         // Utnyttja kallet i föräldern.
-        super("sprites/characterSmall.png",position.x,position.y,true);
+        super("sprites/alien_1.gif",position.x,position.y,true);
      }
 
     public static void main(String[] args)
@@ -37,11 +37,28 @@ public class CharReimu extends Entity
         return this;
     }
 
+    /**
+     * Sätter mängden bomber hos spelaren
+     * @param bombs Mängden bomber att sätta
+     * @return Ändrade spelarenheten
+     */
     public CharReimu setBombs(final int bombs)
     {
         this.bombs = bombs;
         return this;
     }
+
+    /**
+     * Sätter mängden power hos spelaren
+     * @param power Mängden power att sätta
+     * @return Ändrade spelarenheten
+     */
+    public CharReimu setPower(final int power)
+    {
+        this.power = power;
+        return this;
+    }
+
     /**
      * Ökar nuvarande liv hos spelaren med mängden som givits.
      * @param lives Mängden liv att öka med.
@@ -71,6 +88,20 @@ public class CharReimu extends Entity
     }
 
     /**
+     * Ökar nuvarande power hos spelaren med mängden som givits
+     * @param power Mängden power att öka med
+     * @return Ändrade spelarenheten
+     */
+    public CharReimu addPower(final int power)
+    {
+        if(power <= 0){
+            return this;
+        }
+        setPower(getPower() + power);
+        return this;
+    }
+
+    /**
      * Giver mängden liv hos spelaren.
      * @return Mängden liv.
      */
@@ -87,6 +118,16 @@ public class CharReimu extends Entity
     {
         return bombs;
     }
+
+    /**
+     * Giver mängden power hos spelaren.
+     * @return Mängden power
+     */
+    public final int getPower()
+    {
+        return power;
+    }
+
     /**
      * Utför rätt ändring vid skada.
      */
@@ -216,8 +257,8 @@ public class CharReimu extends Entity
          */
         if (x > Game.getInstance().getWidth() - this.getSprite().getWidth()){
                 x = Game.getInstance().getWidth() - this.getSprite().getWidth();
-        }else if(x < Game.getInstance().getWidth() - Game.getInstance().getWidth() + this.getSprite().getWidth()){
-                x = Game.getInstance().getWidth() - Game.getInstance().getWidth() + this.getSprite().getWidth();
+        }else if(x < Game.getInstance().getWidth() - Game.getInstance().getWidth()){
+                x = Game.getInstance().getWidth() - Game.getInstance().getWidth();
         }
     }
     /**
@@ -232,9 +273,10 @@ public class CharReimu extends Entity
     // Inställningar.
     private int     lives        = 3;
     private int     bombs        = 2;
-    private float   speed        = .0f,
-                    maximalSpeed = 10.f,
-                    direction    = -400.0f;
+    private int     power        = 15;
+    private float   speed        = .0f;
+    private float   maximalSpeed = 10.f;
+    private float   direction    = -400.0f;
     // Styrskiftvärden.
     private boolean speedOrDirectionChanged = false;
 

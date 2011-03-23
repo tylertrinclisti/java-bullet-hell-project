@@ -17,6 +17,5 @@ public class ScoreEntity extends GuiItem{
     public void draw(Graphics2D g){
 
         g.setColor(Color.LIGHT_GRAY);
-        g.drawString("Poäng: " + Score.getPoäng()  ,100 ,100 );
     }
 }
