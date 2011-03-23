@@ -18,7 +18,7 @@ public class LifeGui extends GuiItem
 		g.setColor(Color.RED);
 
 		Font oldfont = g.getFont();
-		g.setFont(oldfont.deriveFont((float) oldfont.getSize() * 3.0f));
+		g.setFont(oldfont.deriveFont((float) oldfont.getSize()));
 
 		char[] chr;
 		if (Game.getInstance().getCharacter().getLives() >= 0)

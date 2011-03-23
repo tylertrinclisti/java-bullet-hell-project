@@ -18,7 +18,7 @@ public class PowerGui extends GuiItem
 		g.setColor(Color.WHITE);
 
 		Font oldfont = g.getFont();
-		g.setFont(oldfont.deriveFont((float) oldfont.getSize() * 3.0f));
+		g.setFont(oldfont.deriveFont((float) oldfont.getSize()));
 
 		char[] chr;
 		if (Game.getInstance().getCharacter().getPower() < 40)
