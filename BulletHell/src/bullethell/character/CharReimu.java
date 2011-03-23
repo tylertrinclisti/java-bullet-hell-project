@@ -12,13 +12,13 @@ import bullethell.platforms.PlatformContainerEntity;
 import bullethell.platforms.PlatformNode;
 import org.duncan.Library2D.Math2D;
 
-public class Character extends Entity
+public class CharReimu extends Entity
  {
     /**
      * Skapare.
 	 * @param position Staden vid att sätta ut spelaren.
      */
-    public Character(final Point position)
+    public CharReimu(final Point position)
      {
         // Utnyttja kallet i föräldern.
         super("sprites/characterSmall.png",position.x,position.y,true);
@@ -26,7 +26,7 @@ public class Character extends Entity
 
     public static void main(String[] args)
      {
-        Character c = new Character(new Point(8,8));
+        CharReimu c = new CharReimu(new Point(8,8));
      }
     
     /**
@@ -34,7 +34,7 @@ public class Character extends Entity
      * @param lives Mängden liv att sätta.
      * @return Ändrade spelarenheten.
      */
-    public Character setLives(final int lives)
+    public CharReimu setLives(final int lives)
      {
         this.lives = lives;
         return this;
@@ -45,7 +45,7 @@ public class Character extends Entity
      * @param lives Mängden liv att öka med.
      * @return Ändrade spelarenheten.
      */
-    public Character addLives(final int lives)
+    public CharReimu addLives(final int lives)
      {
         setLives(getLives() + lives);
       
@@ -69,7 +69,7 @@ public class Character extends Entity
      * Om han är stor, vill ett kall hit vränga detta, och tvärt om.
      * @return Ändrade spelarenheten.
      */
-    public Character swapSize()
+    public CharReimu swapSize()
      {
         big = !big;
         if (isBig()) {
@@ -131,7 +131,7 @@ public class Character extends Entity
      * @param speed Hastigheten att sätta.
      * @return Ändrade spelarenheten.
      */
-    public Character setSpeed(final float speed)
+    public CharReimu setSpeed(final float speed)
      {
         this.speed              = speed;
         speedOrDirectionChanged = true;
@@ -152,7 +152,7 @@ public class Character extends Entity
      * @param speed Hastighetsgränsen att sätta.
      * @return Ändrade spelarenheten.
      */
-    public Character setMaximalSpeed(final float speed)
+    public CharReimu setMaximalSpeed(final float speed)
      {
         maximalSpeed = speed;
         return this;
@@ -174,7 +174,7 @@ public class Character extends Entity
      * @param direction Rättningen att sätta.
      * @return Ändrade spelarenheten.
      */
-    public Character setDirection(final float direction)
+    public CharReimu setDirection(final float direction)
      {
         this.direction          = direction;
         speedOrDirectionChanged = true;
@@ -261,56 +261,8 @@ public class Character extends Entity
                }
 
          isRight = true;
-        }
-
-        if (y > Game.getInstance().getHeight())
-            Game.getInstance().notifyDeath();
-
-        if (Game.getInstance().getMap().collidesWith(this))
-         {
-            /*
-            Collidable other = Game.getInstance().getMap().getLastCollision();
-
-            if (other != null)
-             {
-                if (other instanceof PlatformContainerEntity)
-                 {
-                    PlatformContainerEntity container = (PlatformContainerEntity)other;
-
-                    if (container != null)
-                     {
-                        if(container.getLastCollision() != null)
-                         {
-                            PlatformNode platform = container.getLastCollision();
-
-                            if (platform != null)
-                             {
-                                /*org.duncan.Library2D.Point point = platform.getCollisionPoint(new org.duncan.Library2D.Point((int)dx,(int)dy),
-                                                                                              new org.duncan.Library2D.Point((int)dx + sprite.getWidth(),
-                                                                                                                             (int)dy + sprite.getHeight()));//
-                                org.duncan.Library2D.Point point = platform.getCollisionPoint(new org.duncan.Library2D.Point((int)dx + sprite.getWidth() / 2,(int) dy + sprite.getHeight()),
-                                                                                              new org.duncan.Library2D.Point((int)dx + sprite.getWidth() / 2,(int) dy + sprite.getHeight() + 100));
-
-                                if (point != null)
-                                 {
-									// Denna behöver trimmas
-									// Det stog dy = point.getY() förrut, dy är hastigheten, antar att det var fel.
-                                    //y = point.getY() - getSprite().getHeight() - 12;
-                                    setVerticalMovement(0);
-									setSleeping(true);
-                                    jump = true;
-                                 }
-                             }
-                         }
-                     }
-                 }
-             }*/
-             setSleeping(true);
-             setVerticalMovement(0);
-             jump = true;
-        }
-     }
-
+         }
+    }
     /**
      * Denna händelse orsakas vid möte mellan spelaren och någon annan enhet.
      * @param other Andra enheten i mötet.
@@ -343,11 +295,10 @@ public class Character extends Entity
 
     // Inställningar.
     private int     lives        = 3;
-    private boolean big          = false;
+    private int     bombs        = 2;
     private float   speed        = .0f,
                     maximalSpeed = 10.f,
                     direction    = -400.0f;
-    private boolean jump         = false;
     private boolean isRight    = true;
     // Styrskiftvärden.
     private boolean speedOrDirectionChanged = false;

@@ -1,7 +1,7 @@
 package bullethell.powerups;
 
 import bullethell.game.Entity;
-import bullethell.character.Character;
+import bullethell.character.CharReimu;
 import bullethell.game.Game;
 /**
  *
@@ -19,7 +19,7 @@ public class PowerUpDown extends Entity{
         this.life = life;
     }
 
-    public void powerUp(Character character) {
+    public void powerUp(CharReimu character) {
             character.addLives(life);
             if (swapSize == true){
                 if (character.isBig()==false)
@@ -31,8 +31,8 @@ public class PowerUpDown extends Entity{
 
     @Override
     public void collidedWith(Entity other) {
-       if (other instanceof Character){
-           powerUp((Character) other);
+       if (other instanceof CharReimu){
+           powerUp((CharReimu) other);
           Game.getInstance().removeEntity(this);
         }
     }
