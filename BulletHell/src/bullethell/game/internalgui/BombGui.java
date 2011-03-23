@@ -10,22 +10,22 @@ import bullethell.game.GuiItem;
  *
  * @author patrik & Daniel
  */
-public class LifeGui extends GuiItem
+public class BombGui extends GuiItem
 {
 	@Override
 	public void draw(Graphics2D g)
 	{
-		g.setColor(Color.RED);
+		g.setColor(Color.GREEN);
 
 		Font oldfont = g.getFont();
 		g.setFont(oldfont.deriveFont((float) oldfont.getSize() * 3.0f));
 
 		char[] chr;
-		if (Game.getInstance().getCharacter().getLives() >= 0)
+		if (Game.getInstance().getCharacter().getBombs() >= 0)
 		{
-			chr = new char[Game.getInstance().getCharacter().getLives()];
-		
-			char symbol = '♥';
+			chr = new char[Game.getInstance().getCharacter().getBombs()];
+
+			char symbol = '♠';
 
 			for (int i = 0; i < chr.length; i++)
 			{
@@ -34,10 +34,10 @@ public class LifeGui extends GuiItem
 		}
 		else
 		{
-			chr = new char[] {'D', 'E', 'A', 'D'};
+			chr = new char[] {'N', 'O', 'B', 'O', 'M', 'B', 'S'};
 		}
 
-		g.drawString(new String(chr), Game.GAME_WIDTH / 15, Game.GAME_HEIGHT - (g.getFontMetrics().getHeight() * 3));
+		g.drawString(new String(chr), Game.GAME_WIDTH / 15, Game.GAME_HEIGHT - (g.getFontMetrics().getHeight() * 2));
 
 		g.setFont(oldfont);
 	}
