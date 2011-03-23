@@ -178,7 +178,7 @@ public class CharReimu extends Entity
         // Om hastighet eller rättning är ändrad, skall rätt värden räknas ut
         // åt skiftvärdena ärvda från föräldern.
         if (speedOrDirectionChanged)
-         {
+        {
             /**
              * @todo Se till att vinkeln alltid är mellan 0 och 360, men ej i
              *       genom att bara kapa av värdet om det är för högt eller
@@ -200,7 +200,25 @@ public class CharReimu extends Entity
             final Point MOVEMENT = Math2D.lengthDir(getSpeed(),getDirection()).toAWT();
             setHorizontalMovement(MOVEMENT.x);
             setVerticalMovement(MOVEMENT.y);
-         }
+        }
+
+        /**
+         * Karaktären måste hålla sig inom ramarna på y axeln
+         */
+        if (y > Game.getInstance().getHeight() - this.getSprite().getHeight()){
+                y = Game.getInstance().getHeight() - this.getSprite().getHeight();
+        }else if(y < Game.getInstance().getHeight() - Game.getInstance().getHeight()){
+                y = Game.getInstance().getHeight() - Game.getInstance().getHeight();
+        }
+
+        /**
+         * Karaktären måste hålla sig inom ramarna på x axeln
+         */
+        if (x > Game.getInstance().getWidth() - this.getSprite().getWidth()){
+                x = Game.getInstance().getWidth() - this.getSprite().getWidth();
+        }else if(x < Game.getInstance().getWidth() - Game.getInstance().getWidth() + this.getSprite().getWidth()){
+                x = Game.getInstance().getWidth() - Game.getInstance().getWidth() + this.getSprite().getWidth();
+        }
     }
     /**
      * Denna händelse orsakas vid möte mellan spelaren och någon annan enhet.
