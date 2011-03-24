@@ -128,7 +128,7 @@ public class CharReimu extends Entity
      * Utför rätt ändring vid skada.
      */
     public void loseLife()
-     {
+    {
             if (Game.getInstance().getGameTime() < nextHurt){
 		return;
             }
@@ -137,8 +137,26 @@ public class CharReimu extends Entity
 		Game.getInstance().notifyDeath();
 
 		// Can't be hurt right after just being hurt.
-		nextHurt = Game.getInstance().getGameTime() + 950;
-     }
+		nextHurt = Game.getInstance().getGameTime() + 1000;
+    }
+
+    /**
+     * Gör karaktären odödlig i ett visst antal sekunder
+     * @param miliseconds hur många ms som karaktären ska vara odödlig
+     */
+    public void setInvincibility(int miliseconds)
+    {
+        nextHurt = Game.getInstance().getGameTime() + miliseconds;
+    }
+
+    /**
+     * Skickar tillbaka hur länge till karaktären är odödlig
+     * @return Längden man är odödlig
+     */
+    public final long getInvincibility()
+    {
+        return -Game.getInstance().getGameTime() + nextHurt;
+    }
 
     /**
      * Sätter spelarhastigheten.
