@@ -149,7 +149,7 @@ public class CharReimu extends Entity
         nextHurt = Game.getInstance().getGameTime() + miliseconds;
     }
 
-    /**
+    /** 
      * Skickar tillbaka hur länge till karaktären är odödlig
      * @return Längden man är odödlig
      */
