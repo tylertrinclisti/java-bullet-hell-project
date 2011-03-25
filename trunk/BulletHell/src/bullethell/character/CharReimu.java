@@ -304,7 +304,7 @@ public class CharReimu extends Entity
                 setImage("sprites/reimu_1.png");
             }
             if(Game.getInstance().getGameTime() < nextHurt && nextHurtSprite < Game.getInstance().getGameTime()){
-                setImage("");
+                setImage("sprites/reimuE.png");
                 nextHurtSprite = Game.getInstance().getGameTime() + 160;
             }
         }
