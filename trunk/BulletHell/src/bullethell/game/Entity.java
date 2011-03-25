@@ -57,9 +57,11 @@ public abstract class Entity implements Collidable{
 	 * @param y The initial y location of this entity
 	 */
 	public Entity(String ref,int x,int y) {
-		if (ref != null)
+		if (!ref.equals("")){
 			this.sprite = SpriteStore.get().getSprite(ref);
-
+                }else{
+                    this.sprite = null;
+                }
 		this.x = x;
 		this.y = y;
 	}
@@ -153,7 +155,11 @@ public abstract class Entity implements Collidable{
 	 */
 	public void setImage(String ref)
 	{
+            if(!ref.equals("")){
 		this.sprite = SpriteStore.get().getSprite(ref);
+            }else{
+                this.sprite = null;
+            }
 	}
         
 	/**

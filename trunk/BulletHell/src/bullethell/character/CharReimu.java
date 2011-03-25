@@ -149,7 +149,7 @@ public class CharReimu extends Entity
             }
             setLives(getLives() - 1);
             // Can't be hurt right after just being hurt.
-            nextHurt = Game.getInstance().getGameTime() + 1000;
+            nextHurt = Game.getInstance().getGameTime() + 3000;
     }
 
     /**
@@ -303,6 +303,10 @@ public class CharReimu extends Entity
             }else{
                 setImage("sprites/reimu_1.png");
             }
+            if(Game.getInstance().getGameTime() < nextHurt && nextHurtSprite < Game.getInstance().getGameTime()){
+                setImage("");
+                nextHurtSprite = Game.getInstance().getGameTime() + 160;
+            }
         }
 
         /**
@@ -351,6 +355,7 @@ public class CharReimu extends Entity
     private boolean speedOrDirectionChanged = false;
     // För sprite byte
     private long    nextSprite  = 0L;
+    private long    nextHurtSprite = 0L;
     // För odödlighet.
     private long    nextHurt	= 0L;
  }
