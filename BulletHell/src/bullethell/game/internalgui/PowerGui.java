@@ -21,11 +21,12 @@ public class PowerGui extends GuiItem
 		g.setFont(oldfont.deriveFont((float) oldfont.getSize()));
 
 		char[] chr;
-		if (Game.getInstance().getCharacter().getPower() < 40)
+		if (Game.getInstance().getCharacter().getPower() < 400)
 		{
-                        String first = Integer.toString((Game.getInstance().getCharacter().getPower() / 10));
-                        String last = Integer.toString((Game.getInstance().getCharacter().getPower() - ((Integer.parseInt(first) * 10))));
-			chr = new char[] {'P', 'o', 'w', 'e', 'r', ':', ' ', new Character(first.charAt(0)), '.', new Character(last.charAt(0))};
+                        String first = Integer.toString(Game.getInstance().getCharacter().getPower() / 100);
+                        String last = Integer.toString(Game.getInstance().getCharacter().getPower() - ((Game.getInstance().getCharacter().getPower() / 10) * 10));
+                        String second = Integer.toString(Game.getInstance().getCharacter().getPower() - (Integer.parseInt(first) * 100) - Integer.parseInt(last));
+			chr = new char[] {'P', 'o', 'w', 'e', 'r', ':', ' ', new Character(first.charAt(0)), '.', new Character(second.charAt(0)), new Character(last.charAt(0))};
 		}
 		else
 		{

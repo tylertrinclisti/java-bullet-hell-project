@@ -11,11 +11,13 @@ import bullethell.game.SpriteStore;
  */
 public class BulletShot extends Entity {
 	/** The vertical speed at which the players shot moves */
-	private double moveSpeed = -800;
+	private double moveSpeed = 1;
 	/** The game in which this entity exists */
 	private Game game = Game.getInstance();
 	/** True if this shot has been "used", i.e. its hit something */
 	private boolean used = false;
+        /** Direction of the bullet in degrees */
+        private int direction;
 	
 	/**
 	 * Create a new shot from the player
@@ -25,9 +27,12 @@ public class BulletShot extends Entity {
 	 * @param x The initial x location of the shot
 	 * @param y The initial y location of the shot
 	 */
-	public BulletShot(int x,int y) {
-            super("sprites/reimuShot1.jpg",(x - (SpriteStore.get().getSprite("sprites/reimuShot1.jpg").getWidth() / 2)),y);
+	public BulletShot(String sprite, int x,int y, int direction, int speed) {
+            super(sprite,(x - (SpriteStore.get().getSprite("sprites/reimuShot1.jpg").getWidth() / 2)),y);
+            moveSpeed = speed;
             dy = moveSpeed;
+            dx = Math.sin(Math.toRadians(-direction)) * moveSpeed;
+            this.direction = direction;
 	}
 
 	/**
@@ -38,9 +43,8 @@ public class BulletShot extends Entity {
 	public void move(long delta) {
 		// proceed with normal move
 		super.move(delta);
-		
-		// if we shot off the screen, remove ourselfs
-		if (y < (game.getInstance().getHeight() - game.getInstance().getHeight())) {
+		// if we shot off the screen or if the bullet has hit something, remove ourselfs
+		if (y < (game.getHeight() - game.getHeight()) || used) {
 			game.removeEntity(this);
 		}
 	}
