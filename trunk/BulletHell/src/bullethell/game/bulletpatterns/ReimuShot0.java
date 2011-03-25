@@ -1,17 +1,19 @@
-package bullethell.game;
-import bullethell.monster666.SpeedGuy;
+package bullethell.game.bulletpatterns;
 
+import bullethell.game.Entity;
+import bullethell.game.Game;
+import bullethell.game.SpriteStore;
 
 /**
  * An entity representing a shot fired by the player's ship
  * 
- * @author Kevin Glass
+ * @author Daniel
  */
-public class ShotEntity extends Entity {
+public class ReimuShot0 extends Entity {
 	/** The vertical speed at which the players shot moves */
-	private double moveSpeed = -300;
+	private double moveSpeed = -800;
 	/** The game in which this entity exists */
-	private Game game;
+	private Game game = Game.getInstance();
 	/** True if this shot has been "used", i.e. its hit something */
 	private boolean used = false;
 	
@@ -23,12 +25,9 @@ public class ShotEntity extends Entity {
 	 * @param x The initial x location of the shot
 	 * @param y The initial y location of the shot
 	 */
-	public ShotEntity(Game game,String sprite,int x,int y) {
-		super(sprite,x,y);
-		
-		this.game = game;
-		
-		dy = moveSpeed;
+	public ReimuShot0(int x,int y) {
+            super("sprites/reimuShot1.jpg",(x - (SpriteStore.get().getSprite("sprites/reimuShot1.jpg").getWidth() / 2)),y);
+            dy = moveSpeed;
 	}
 
 	/**
@@ -41,7 +40,7 @@ public class ShotEntity extends Entity {
 		super.move(delta);
 		
 		// if we shot off the screen, remove ourselfs
-		if (y < -100) {
+		if (y < (game.getInstance().getHeight() - game.getInstance().getHeight())) {
 			game.removeEntity(this);
 		}
 	}
@@ -53,6 +52,8 @@ public class ShotEntity extends Entity {
 	 * @parma other The other entity with which we've collided
 	 */
 	public void collidedWith(Entity other) {
-		game.removeEntity(this);
+            /**
+             * Enemy collision code here
+             */
 	}
 }
