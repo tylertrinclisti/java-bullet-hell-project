@@ -2,7 +2,7 @@ package bullethell.monster666;
 
 import bullethell.game.Entity;
 import bullethell.game.Game;
-import bullethell.game.bulletpatterns.ReimuShot0;
+import bullethell.game.bulletpatterns.BulletShot;
 import bullethell.character.CharReimu;
 import bullethell.game.SpriteStore;
 

@@ -30,6 +30,11 @@ public class CharReimu extends Entity
     public CharReimu setLives(final int lives)
     {
         this.lives = lives;
+        if(this.lives > 8){
+            this.lives = 8;
+        }else if(this.lives < 0){
+            this.bombs = 0;
+        }
         return this;
     }
 
@@ -41,6 +46,11 @@ public class CharReimu extends Entity
     public CharReimu setBombs(final int bombs)
     {
         this.bombs = bombs;
+        if(this.bombs > 8){
+            this.bombs = 8;
+        }else if(this.bombs < 0){
+            this.bombs = 0;
+        }
         return this;
     }
 
@@ -52,6 +62,11 @@ public class CharReimu extends Entity
     public CharReimu setPower(final int power)
     {
         this.power = power;
+        if(this.power > 40){
+            this.power = 40;
+        }else if(this.power < 0){
+            this.power = 0;
+        }
         return this;
     }
 
@@ -133,11 +148,8 @@ public class CharReimu extends Entity
 		return;
             }
             setLives(getLives() - 1);
-            if (getLives() <= 0)
-		Game.getInstance().notifyDeath();
-
-		// Can't be hurt right after just being hurt.
-		nextHurt = Game.getInstance().getGameTime() + 1000;
+            // Can't be hurt right after just being hurt.
+            nextHurt = Game.getInstance().getGameTime() + 1000;
     }
 
     /**
@@ -268,10 +280,6 @@ public class CharReimu extends Entity
                 setImage("sprites/reimu_3.png");
             }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_3.png")){
                 setImage("sprites/reimu_4.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_4.png") ||
-                     this.sprite == SpriteStore.get().getSprite("sprites/reimuL_1.png") ||
-                     this.sprite == SpriteStore.get().getSprite("sprites/reimuR_1.png")){
-                setImage("sprites/reimu_1.png");
             }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_2.png")){
                 setImage("sprites/reimuL_1.png");
             }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_3.png")){
@@ -314,6 +322,14 @@ public class CharReimu extends Entity
         }else if(x < Game.getInstance().getWidth() - Game.getInstance().getWidth() - (this.getSprite().getWidth() / 2)){
                 x = Game.getInstance().getWidth() - Game.getInstance().getWidth() - (this.getSprite().getWidth() / 2);
         }
+
+        /**
+         * Kollar om karaktären är död
+         */
+        if (getLives() <= 0){
+            Game.getInstance().notifyDeath();
+        }
+
     }
     /**
      * Denna händelse orsakas vid möte mellan spelaren och någon annan enhet.
@@ -327,7 +343,7 @@ public class CharReimu extends Entity
     // Inställningar.
     private int     lives        = 3;
     private int     bombs        = 2;
-    private int     power        = 0;
+    private int     power        = 10;
     private float   speed        = .0f;
     private float   maximalSpeed = 10.f;
     private float   direction    = -400.0f;

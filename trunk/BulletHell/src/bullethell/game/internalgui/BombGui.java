@@ -23,11 +23,18 @@ public class BombGui extends GuiItem
 		char[] chr;
 		if (Game.getInstance().getCharacter().getBombs() >= 0)
 		{
-			chr = new char[Game.getInstance().getCharacter().getBombs()];
+			chr = new char[Game.getInstance().getCharacter().getBombs() + 7];
 
+                        chr[0] = 'B';
+                        chr[1] = 'o';
+                        chr[2] = 'm';
+                        chr[3] = 'b';
+                        chr[4] = 's';
+                        chr[5] = ':';
+                        chr[6] = ' ';
 			char symbol = '♠';
 
-			for (int i = 0; i < chr.length; i++)
+			for (int i = 7; i < chr.length; i++)
 			{
 				chr[i] = symbol;
 			}

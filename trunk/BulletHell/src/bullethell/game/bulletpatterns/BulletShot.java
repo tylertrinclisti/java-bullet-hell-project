@@ -9,7 +9,7 @@ import bullethell.game.SpriteStore;
  * 
  * @author Daniel
  */
-public class ReimuShot0 extends Entity {
+public class BulletShot extends Entity {
 	/** The vertical speed at which the players shot moves */
 	private double moveSpeed = -800;
 	/** The game in which this entity exists */
@@ -25,7 +25,7 @@ public class ReimuShot0 extends Entity {
 	 * @param x The initial x location of the shot
 	 * @param y The initial y location of the shot
 	 */
-	public ReimuShot0(int x,int y) {
+	public BulletShot(int x,int y) {
             super("sprites/reimuShot1.jpg",(x - (SpriteStore.get().getSprite("sprites/reimuShot1.jpg").getWidth() / 2)),y);
             dy = moveSpeed;
 	}
