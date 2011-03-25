@@ -5,6 +5,7 @@
 
 package bullethell.game.internalgui;
 
+import bullethell.game.Game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import bullethell.game.GuiItem;
@@ -54,7 +55,7 @@ public class MessageHandle extends GuiItem
 				g.setColor(new Color(0, 0, 0, alpha));
 				g.drawString(msgs[i].str, 19, 19 + 20 * i);
 				g.setColor(new Color(255, 255, 255, alpha));
-				g.drawString(msgs[i].str, 20, 20 + 20 * i);
+				g.drawString(msgs[i].str,(Game.GAME_WIDTH-g.getFontMetrics().stringWidth(msgs[i].str))/2,(Game.GAME_HEIGHT / 2 - 25) - (Game.GAME_HEIGHT / 2 - 25 * i));
 			}
 		}
 	}
