@@ -309,10 +309,10 @@ public class CharReimu extends Entity
         /**
          * Karaktären måste hålla sig inom ramarna på x axeln
          */
-        if (x > Game.getInstance().getWidth() - this.getSprite().getWidth()){
-                x = Game.getInstance().getWidth() - this.getSprite().getWidth();
-        }else if(x < Game.getInstance().getWidth() - Game.getInstance().getWidth()){
-                x = Game.getInstance().getWidth() - Game.getInstance().getWidth();
+        if (x > Game.getInstance().getWidth() - (this.getSprite().getWidth() / 2)){
+                x = Game.getInstance().getWidth() - (this.getSprite().getWidth() / 2);
+        }else if(x < Game.getInstance().getWidth() - Game.getInstance().getWidth() - (this.getSprite().getWidth() / 2)){
+                x = Game.getInstance().getWidth() - Game.getInstance().getWidth() - (this.getSprite().getWidth() / 2);
         }
     }
     /**
