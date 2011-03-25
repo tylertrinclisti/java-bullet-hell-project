@@ -62,8 +62,8 @@ public class CharReimu extends Entity
     public CharReimu setPower(final int power)
     {
         this.power = power;
-        if(this.power > 40){
-            this.power = 40;
+        if(this.power > 400){
+            this.power = 400;
         }else if(this.power < 0){
             this.power = 0;
         }
@@ -343,7 +343,7 @@ public class CharReimu extends Entity
     // Inställningar.
     private int     lives        = 3;
     private int     bombs        = 2;
-    private int     power        = 10;
+    private int     power        = 0;
     private float   speed        = .0f;
     private float   maximalSpeed = 10.f;
     private float   direction    = -400.0f;
