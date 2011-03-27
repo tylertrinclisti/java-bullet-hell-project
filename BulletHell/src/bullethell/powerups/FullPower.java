@@ -11,7 +11,7 @@ public class FullPower extends Entity{
 
     private int direction;
     private double moveSpeed = -200;
-    private long startTime;
+    private long startTime = 0L;
 
     public FullPower(int x, int y) {
         super("sprites/FullPower.png", x, y, false);

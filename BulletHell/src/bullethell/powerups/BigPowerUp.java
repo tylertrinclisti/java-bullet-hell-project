@@ -11,14 +11,14 @@ public class BigPowerUp extends Entity{
 
     private int direction;
     private double moveSpeed = -200;
-    private long startTime;
+    private long startTime = 0L;
 
     public BigPowerUp(int x, int y) {
         super("sprites/BigPowerUp.png", x, y, false);
 
         dy = moveSpeed + (Math.random() * 40);
         startTime = Game.getInstance().getGameTime();
-
+        
         /**
          * Poweruppen rör sig efter att ha blivit utmålad på skärmen i en
          * slumpvis vald riktning uppåt på skärmen.

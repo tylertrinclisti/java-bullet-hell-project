@@ -11,7 +11,7 @@ public class BombUp extends Entity{
 
     private int direction;
     private double moveSpeed = -200;
-    private long startTime;
+    private long startTime = 0L;
     
     public BombUp(int x, int y) {
         super("sprites/BombUp.png", x, y, false);
