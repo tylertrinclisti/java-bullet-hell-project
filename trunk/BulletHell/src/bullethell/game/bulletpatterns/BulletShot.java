@@ -16,23 +16,21 @@ public class BulletShot extends Entity {
 	private Game game = Game.getInstance();
 	/** True if this shot has been "used", i.e. its hit something */
 	private boolean used = false;
-        /** Direction of the bullet in degrees */
-        private int direction;
 	
 	/**
 	 * Create a new shot from the player
 	 * 
-	 * @param game The game in which the shot has been created
 	 * @param sprite The sprite representing this shot
 	 * @param x The initial x location of the shot
 	 * @param y The initial y location of the shot
+         * @param direction The direction of the shot
+         * @param speed The speed of the shot
 	 */
 	public BulletShot(String sprite, int x,int y, int direction, int speed) {
             super(sprite,(x - (SpriteStore.get().getSprite("sprites/reimuShot1.jpg").getWidth() / 2)),y);
             moveSpeed = speed;
             dy = moveSpeed;
             dx = Math.sin(Math.toRadians(-direction)) * moveSpeed;
-            this.direction = direction;
 	}
 
 	/**
