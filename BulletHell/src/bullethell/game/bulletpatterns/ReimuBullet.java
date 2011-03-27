@@ -9,7 +9,7 @@ import bullethell.game.SpriteStore;
  * 
  * @author Daniel
  */
-public class BulletShot extends Entity {
+public class ReimuBullet extends Entity {
 	/** The vertical speed at which the players shot moves */
 	private double moveSpeed = 1;
 	/** The game in which this entity exists */
@@ -26,7 +26,7 @@ public class BulletShot extends Entity {
          * @param direction The direction of the shot
          * @param speed The speed of the shot
 	 */
-	public BulletShot(String sprite, int x,int y, int direction, int speed) {
+	public ReimuBullet(String sprite, int x,int y, int direction, int speed) {
             super(sprite,(x - (SpriteStore.get().getSprite("sprites/reimuShot1.jpg").getWidth() / 2)),y);
             moveSpeed = speed;
             dy = moveSpeed;
@@ -46,6 +46,10 @@ public class BulletShot extends Entity {
 			game.removeEntity(this);
 		}
 	}
+
+        public void used(){
+            used = true;
+        }
 	
 	/**
 	 * Notification that this shot has collided with another
