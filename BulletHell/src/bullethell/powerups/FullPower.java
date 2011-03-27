@@ -40,10 +40,14 @@ public class FullPower extends Entity{
     public void move(long delta) {
         super.move(delta);
 
-        if((x - Game.getInstance().getHitBox().getX() <= 50 &&
-            x - Game.getInstance().getHitBox().getX() >= -50) &&
-           (y - Game.getInstance().getHitBox().getY() <= 50 &&
-            y - Game.getInstance().getHitBox().getY() >= -50)){
+        /**
+         * Om karaktären är i närheten av poweruppen så ska den
+         * sugas till karaktären
+         */
+        if((x - Game.getInstance().getHitBox().getX() <= 40 &&
+            x - Game.getInstance().getHitBox().getX() >= -40) &&
+           (y - Game.getInstance().getHitBox().getY() <= 40 &&
+            y - Game.getInstance().getHitBox().getY() >= -40)){
             dx = 0;
             dy = 0;
             if(x < Game.getInstance().getHitBox().getX()){
@@ -57,6 +61,7 @@ public class FullPower extends Entity{
                 y -= 4;
             }
         }else{
+            
             /**
              * Efter att poweruppen har åkt ifrån sin ursprungs punkt såpass att dy ungefär
              * når 0 så skall den itne längre ha en hastighet på det horisontella planet.
