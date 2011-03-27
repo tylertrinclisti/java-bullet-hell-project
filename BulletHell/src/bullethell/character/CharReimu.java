@@ -239,7 +239,7 @@ public class CharReimu extends Entity
      */
     @Override
     public void move(long delta)
-     {
+    {
         super.move(delta);
 
         // Om hastighet eller rättning är ändrad, skall rätt värden räknas ut
