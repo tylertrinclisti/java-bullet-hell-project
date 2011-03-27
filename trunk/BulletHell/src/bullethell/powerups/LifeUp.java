@@ -17,6 +17,7 @@ public class LifeUp extends Entity{
         super("sprites/LifeUp.png", x, y, false);
 
         dy = moveSpeed + (Math.random() * 40);
+        startTime = Game.getInstance().getGameTime();
 
         /**
          * Poweruppen rör sig efter att ha blivit utmålad på skärmen i en

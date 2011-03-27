@@ -11,12 +11,13 @@ public class FullPower extends Entity{
 
     private int direction;
     private double moveSpeed = -200;
-    private long startTime = Game.getInstance().getGameTime();
+    private long startTime;
 
     public FullPower(int x, int y) {
         super("sprites/FullPower.png", x, y, false);
 
         dy = moveSpeed + (Math.random() * 40);
+        startTime = Game.getInstance().getGameTime();
 
         /**
          * Poweruppen rör sig efter att ha blivit utmålad på skärmen i en
