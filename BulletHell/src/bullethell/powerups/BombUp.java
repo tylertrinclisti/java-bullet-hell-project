@@ -17,6 +17,7 @@ public class BombUp extends Entity{
         super("sprites/BombUp.png", x, y, false);
 
         dy = moveSpeed + (Math.random() * 80);
+        startTime = Game.getInstance().getGameTime();
 
         /**
          * Poweruppen rör sig efter att ha blivit utmålad på skärmen i en

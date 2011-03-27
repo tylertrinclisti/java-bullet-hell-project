@@ -9,6 +9,7 @@ import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.game.SpriteStore;
 import bullethell.powerups.BigPowerUp;
+import bullethell.powerups.FullPower;
 import bullethell.powerups.SmallPowerUp;
 import org.duncan.Library2D.Math2D;
 
@@ -35,7 +36,7 @@ public class CharReimu extends Entity
         if(this.lives > 8){
             this.lives = 8;
         }else if(this.lives < 0){
-            this.bombs = 0;
+            this.lives = 0;
         }
         return this;
     }
@@ -154,6 +155,9 @@ public class CharReimu extends Entity
             nextHurt = Game.getInstance().getGameTime() + 3000;
             spriteSleep = true;
             setImage("sprites/reimuempty.png");
+            if (getLives() <= 0){
+                Game.getInstance().addEntity(new FullPower((int) x, (int) y));
+            }
             for(int i = 0; i < 10; i++){
                 if(power >= 25 && i == 0){
                     Game.getInstance().addEntity(new BigPowerUp((int) x, (int) y));
@@ -163,11 +167,19 @@ public class CharReimu extends Entity
                     Game.getInstance().addEntity(new SmallPowerUp((int) x, (int) y));
                     power -= 5;
                 }else{
-                    return;
+                    break;
                 }
             }
             x = Game.GAME_WIDTH / 2;
             y = Game.GAME_HEIGHT - (Game.GAME_HEIGHT / 10);
+            /**
+             * Kollar om karaktären är död
+             */
+            if (getLives() <= 0){
+                nextHurt = 0;
+                Game.getInstance().notifyDeath();
+                return;
+            }
     }
 
     /**
@@ -361,14 +373,6 @@ public class CharReimu extends Entity
         }else if(x < Game.getInstance().getWidth() - Game.getInstance().getWidth() - (this.getSprite().getWidth() / 2)){
                 x = Game.getInstance().getWidth() - Game.getInstance().getWidth() - (this.getSprite().getWidth() / 2);
         }
-
-        /**
-         * Kollar om karaktären är död
-         */
-        if (getLives() <= 0){
-            Game.getInstance().notifyDeath();
-        }
-
     }
     /**
      * Denna händelse orsakas vid möte mellan spelaren och någon annan enhet.
