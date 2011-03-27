@@ -152,6 +152,8 @@ public class CharReimu extends Entity
             setLives(getLives() - 1);
             // Can't be hurt right after just being hurt.
             nextHurt = Game.getInstance().getGameTime() + 3000;
+            spriteSleep = true;
+            setImage("sprites/reimuempty.png");
             for(int i = 0; i < 10; i++){
                 if(power >= 25 && i == 0){
                     Game.getInstance().addEntity(new BigPowerUp((int) x, (int) y));
@@ -164,6 +166,8 @@ public class CharReimu extends Entity
                     return;
                 }
             }
+            x = Game.GAME_WIDTH / 2;
+            y = Game.GAME_HEIGHT - (Game.GAME_HEIGHT / 10);
     }
 
     /**
@@ -284,47 +288,59 @@ public class CharReimu extends Entity
         }
 
         /**
-         * Karaktären byter hela tiden sprite, om den inte går i sidleds.
+         * När karaktären har kommit tillbaka till ursprungs startpunkten efter
+         * att ha förlorat ett liv, så skall det ta en sekund innan man kan se
+         * karaktären igen.
          */
-        if(Game.getInstance().getGameTime() > nextSprite && !Game.getInstance().getKeyPressed(1) && !Game.getInstance().getKeyPressed(4)){
-            nextSprite = Game.getInstance().getGameTime() + 80;
-            if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_1.png")){
-                setImage("sprites/reimu_2.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_2.png")){
-                setImage("sprites/reimu_3.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_3.png")){
-                setImage("sprites/reimu_4.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_2.png")){
-                setImage("sprites/reimuL_1.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_3.png")){
-                setImage("sprites/reimuL_2.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_4.png")){
-                setImage("sprites/reimuL_3.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_5.png") ||
-                     this.sprite == SpriteStore.get().getSprite("sprites/reimuL_6.png") ||
-                     this.sprite == SpriteStore.get().getSprite("sprites/reimuL_7.png")){
-                setImage("sprites/reimuL_4.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_2.png")){
-                setImage("sprites/reimuR_1.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_3.png")){
-                setImage("sprites/reimuR_2.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_4.png")){
-                setImage("sprites/reimuR_3.png");
-            }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_5.png") ||
-                     this.sprite == SpriteStore.get().getSprite("sprites/reimuR_6.png") ||
-                     this.sprite == SpriteStore.get().getSprite("sprites/reimuR_7.png")){
-                setImage("sprites/reimuR_4.png");
-            }else{
-                setImage("sprites/reimu_1.png");
-            }
-            
-            /**
-            * Om karaktären just har förlorat ett liv så skall karaktärens sprite "blinka"
-            * mellan en tom sprite och den vanliga
-            */
-            if(Game.getInstance().getGameTime() < nextHurt && nextHurtSprite < Game.getInstance().getGameTime()){
-                setImage("sprites/reimuempty.png");
-                nextHurtSprite = Game.getInstance().getGameTime() + 160;
+        if(Game.getInstance().getGameTime() > nextHurt - 2000){
+            spriteSleep = false;
+        }
+
+        /**
+         * Karaktären byter hela tiden sprite, om den inte går i sidleds, och
+         * om karaktären inte just har förlorat ett liv.
+         */
+        if(!spriteSleep){
+            if(Game.getInstance().getGameTime() > nextSprite && !Game.getInstance().getKeyPressed(1) && !Game.getInstance().getKeyPressed(4)){
+                nextSprite = Game.getInstance().getGameTime() + 80;
+                if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_1.png")){
+                    setImage("sprites/reimu_2.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_2.png")){
+                    setImage("sprites/reimu_3.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimu_3.png")){
+                    setImage("sprites/reimu_4.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_2.png")){
+                    setImage("sprites/reimuL_1.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_3.png")){
+                    setImage("sprites/reimuL_2.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_4.png")){
+                    setImage("sprites/reimuL_3.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuL_5.png") ||
+                         this.sprite == SpriteStore.get().getSprite("sprites/reimuL_6.png") ||
+                         this.sprite == SpriteStore.get().getSprite("sprites/reimuL_7.png")){
+                    setImage("sprites/reimuL_4.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_2.png")){
+                    setImage("sprites/reimuR_1.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_3.png")){
+                    setImage("sprites/reimuR_2.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_4.png")){
+                    setImage("sprites/reimuR_3.png");
+                }else if(this.sprite == SpriteStore.get().getSprite("sprites/reimuR_5.png") ||
+                         this.sprite == SpriteStore.get().getSprite("sprites/reimuR_6.png") ||
+                         this.sprite == SpriteStore.get().getSprite("sprites/reimuR_7.png")){
+                    setImage("sprites/reimuR_4.png");
+                }else{
+                    setImage("sprites/reimu_1.png");
+                }
+
+                /**
+                * Om karaktären just har förlorat ett liv så skall karaktärens sprite "blinka"
+                * mellan en tom sprite och den vanliga
+                */
+                if(Game.getInstance().getGameTime() < nextHurt && nextHurtSprite < Game.getInstance().getGameTime()){
+                    setImage("sprites/reimuempty.png");
+                    nextHurtSprite = Game.getInstance().getGameTime() + 160;
+                }
             }
         }
 
@@ -375,6 +391,7 @@ public class CharReimu extends Entity
     // För sprite byte
     private long    nextSprite  = 0L;
     private long    nextHurtSprite = 0L;
+    private boolean spriteSleep = false;
     // För odödlighet.
     private long    nextHurt	= 0L;
  }
