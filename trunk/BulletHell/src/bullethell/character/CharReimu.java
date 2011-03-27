@@ -143,10 +143,25 @@ public class CharReimu extends Entity
     }
 
     /**
+     * Används när spelaren använder en bomb.
+     */
+    public void loseBomb()
+    {
+        if(!Game.getInstance().getGodMode()){
+            if (Game.getInstance().getGameTime() < bombCooldown){
+                return;
+            }
+            setBombs(getBombs() - 1);
+            bombCooldown = Game.getInstance().getGameTime() + 2000;
+        }
+    }
+
+    /**
      * Utför rätt ändring vid skada.
      */
     public void loseLife()
     {
+        if(!Game.getInstance().getGodMode()){
             if (Game.getInstance().getGameTime() < nextHurt){
 		return;
             }
@@ -172,6 +187,7 @@ public class CharReimu extends Entity
             }
             x = Game.GAME_WIDTH / 2;
             y = Game.GAME_HEIGHT - (Game.GAME_HEIGHT / 10);
+        }
     }
 
     /**
@@ -283,7 +299,6 @@ public class CharReimu extends Entity
                 direction = 360.f + direction - (float)Math.floor(direction/360.f)*360.f;
                 
             }
-            System.out.println(direction);
 
             // Utnyttja uträkningarna som redan är inkapslade.
             final Point MOVEMENT = Math2D.lengthDir(getSpeed(),getDirection()).toAWT();
@@ -384,20 +399,22 @@ public class CharReimu extends Entity
         
     }
 
-    // Inställningar.
+    // Inställningar
     private int     lives        = 3;
     private int     bombs        = 2;
     private int     power        = 0;
     private float   speed        = .0f;
     private float   maximalSpeed = 10.f;
     private float   direction    = -400.0f;
-    // Styrskiftvärden.
+    // Styrskiftvärden
     private boolean speedOrDirectionChanged = false;
     // För sprite byte
     private long    nextSprite  = 0L;
     private long    nextHurtSprite = 0L;
     private boolean spriteSleep = false;
-    // För odödlighet.
+    // För odödlighet
     private long    nextHurt	= 0L;
+    // Bomb cooldown
+    private long    bombCooldown = 0L;
  }
 
