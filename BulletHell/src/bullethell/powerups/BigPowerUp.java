@@ -75,9 +75,11 @@ public class BigPowerUp extends Entity{
     @Override
     public void collidedWith(Entity other) {
         if (other instanceof CharReimu){
-            if(startTime < Game.getInstance().getGameTime() - 200){
-                Game.getInstance().getCharacter().addPower(25);
-                Game.getInstance().removeEntity(this);
+            if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility() - 2000){
+                if(startTime < Game.getInstance().getGameTime() - 200){
+                    Game.getInstance().getCharacter().addPower(25);
+                    Game.getInstance().removeEntity(this);
+                }
             }
         }
     }
