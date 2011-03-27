@@ -7,14 +7,17 @@ import bullethell.game.Game;
  *
  * @author Daniel
  */
-public class PowerUp extends Entity{
+public class BigPowerUp extends Entity{
+
     private int direction;
     private double moveSpeed = -200;
+    private long startTime;
 
-    public PowerUp(int x, int y) {
-        super("sprites/PowerUp.png", x, y, false);
+    public BigPowerUp(int x, int y) {
+        super("sprites/BigPowerUp.png", x, y, false);
 
         dy = moveSpeed + (Math.random() * 40);
+        startTime = Game.getInstance().getGameTime();
 
         /**
          * Poweruppen rör sig efter att ha blivit utmålad på skärmen i en
@@ -71,9 +74,11 @@ public class PowerUp extends Entity{
 
     @Override
     public void collidedWith(Entity other) {
-       if (other instanceof CharReimu){
-          Game.getInstance().getCharacter().addPower(5);
-          Game.getInstance().removeEntity(this);
+        if (other instanceof CharReimu){
+            if(startTime < Game.getInstance().getGameTime() - 200){
+                Game.getInstance().getCharacter().addPower(25);
+                Game.getInstance().removeEntity(this);
+            }
         }
     }
 }

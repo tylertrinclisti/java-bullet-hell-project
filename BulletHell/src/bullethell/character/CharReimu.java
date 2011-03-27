@@ -8,6 +8,8 @@ import bullethell.game.Collidable;
 import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.game.SpriteStore;
+import bullethell.powerups.BigPowerUp;
+import bullethell.powerups.SmallPowerUp;
 import org.duncan.Library2D.Math2D;
 
 public class CharReimu extends Entity
@@ -150,6 +152,18 @@ public class CharReimu extends Entity
             setLives(getLives() - 1);
             // Can't be hurt right after just being hurt.
             nextHurt = Game.getInstance().getGameTime() + 3000;
+            for(int i = 0; i < 10; i++){
+                if(power >= 25 && i == 0){
+                    Game.getInstance().addEntity(new BigPowerUp((int) x, (int) y));
+                    power -= 25;
+                    i += 4;
+                }else if(power >= 5){
+                    Game.getInstance().addEntity(new SmallPowerUp((int) x, (int) y));
+                    power -= 5;
+                }else{
+                    return;
+                }
+            }
     }
 
     /**
@@ -163,11 +177,11 @@ public class CharReimu extends Entity
 
     /** 
      * Skickar tillbaka hur länge till karaktären är odödlig
-     * @return Längden man är odödlig
+     * @return Vad klockan var när man blev odödlig + Tiden man är odödlig
      */
     public final long getInvincibility()
     {
-        return -Game.getInstance().getGameTime() + nextHurt;
+        return nextHurt;
     }
 
     /**
@@ -303,8 +317,13 @@ public class CharReimu extends Entity
             }else{
                 setImage("sprites/reimu_1.png");
             }
+            
+            /**
+            * Om karaktären just har förlorat ett liv så skall karaktärens sprite "blinka"
+            * mellan en tom sprite och den vanliga
+            */
             if(Game.getInstance().getGameTime() < nextHurt && nextHurtSprite < Game.getInstance().getGameTime()){
-                setImage("sprites/reimuE.png");
+                setImage("sprites/reimuempty.png");
                 nextHurtSprite = Game.getInstance().getGameTime() + 160;
             }
         }
