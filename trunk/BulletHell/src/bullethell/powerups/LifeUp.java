@@ -11,7 +11,7 @@ public class LifeUp extends Entity{
     
     private int direction;
     private double moveSpeed = -200;
-    private long startTime;
+    private long startTime = 0L;
 
     public LifeUp(int x, int y) {
         super("sprites/LifeUp.png", x, y, false);

@@ -172,14 +172,6 @@ public class CharReimu extends Entity
             }
             x = Game.GAME_WIDTH / 2;
             y = Game.GAME_HEIGHT - (Game.GAME_HEIGHT / 10);
-            /**
-             * Kollar om karaktären är död
-             */
-            if (getLives() <= 0){
-                nextHurt = 0;
-                Game.getInstance().notifyDeath();
-                return;
-            }
     }
 
     /**
@@ -354,6 +346,15 @@ public class CharReimu extends Entity
                     nextHurtSprite = Game.getInstance().getGameTime() + 160;
                 }
             }
+        }
+
+        /**
+         * Kollar om karaktären är död
+         */
+        if (getLives() <= 0){
+            nextHurt = 0;
+            Game.getInstance().notifyDeath();
+            return;
         }
 
         /**
