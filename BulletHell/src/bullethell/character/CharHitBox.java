@@ -1,4 +1,4 @@
-package bullethell.game.bulletpatterns;
+package bullethell.character;
 
 import bullethell.game.Entity;
 import bullethell.game.Game;
