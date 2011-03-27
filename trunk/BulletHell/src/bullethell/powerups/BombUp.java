@@ -8,9 +8,11 @@ import bullethell.game.Game;
  * @author Daniel
  */
 public class BombUp extends Entity{
-private int direction;
-    private double moveSpeed = -200;
 
+    private int direction;
+    private double moveSpeed = -200;
+    private long startTime;
+    
     public BombUp(int x, int y) {
         super("sprites/BombUp.png", x, y, false);
 
@@ -71,9 +73,11 @@ private int direction;
 
     @Override
     public void collidedWith(Entity other) {
-       if (other instanceof CharReimu){
-          Game.getInstance().getCharacter().addBombs(1);
-          Game.getInstance().removeEntity(this);
+        if (other instanceof CharReimu){
+            if(startTime < Game.getInstance().getGameTime() - 200){
+                Game.getInstance().getCharacter().addBombs(1);
+                Game.getInstance().removeEntity(this);
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ public class FullPower extends Entity{
 
     private int direction;
     private double moveSpeed = -200;
+    private long startTime = Game.getInstance().getGameTime();
 
     public FullPower(int x, int y) {
         super("sprites/FullPower.png", x, y, false);
@@ -72,9 +73,11 @@ public class FullPower extends Entity{
 
     @Override
     public void collidedWith(Entity other) {
-       if (other instanceof CharReimu){
-          Game.getInstance().getCharacter().addPower(400);
-          Game.getInstance().removeEntity(this);
+        if (other instanceof CharReimu){
+            if(startTime < Game.getInstance().getGameTime() - 200){
+                Game.getInstance().getCharacter().addPower(400);
+                Game.getInstance().removeEntity(this);
+            }
         }
     }
 }
