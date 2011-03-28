@@ -74,6 +74,20 @@ public class CharReimu extends Entity
     }
 
     /**
+     * Sätter mängden graze hos spelaren
+     * @param graze Mängden graze att sätta
+     * @return Ändrade spelarenheten
+     */
+    public CharReimu setGraze(final int graze)
+    {
+        this.graze = graze;
+        if(this.graze < 0){
+            this.graze = 0;
+        }
+        return this;
+    }
+
+    /**
      * Ökar nuvarande liv hos spelaren med mängden som givits.
      * @param lives Mängden liv att öka med.
      * @return Ändrade spelarenheten.
@@ -116,6 +130,20 @@ public class CharReimu extends Entity
     }
 
     /**
+     * Ökar nuvarande graze hos spelaren med mängden som givits
+     * @param graze Mängden graze att öka med
+     * @return Ändrade spelarenheten
+     */
+    public CharReimu addGraze(final int graze)
+    {
+        if(graze <= 0){
+            return this;
+        }
+        setGraze(getGraze() + graze);
+        return this;
+    }
+
+    /**
      * Giver mängden liv hos spelaren.
      * @return Mängden liv.
      */
@@ -140,6 +168,15 @@ public class CharReimu extends Entity
     public final int getPower()
     {
         return power;
+    }
+
+    /**
+     * Giver mängden graze hos spelaren.
+     * @return Mängden graze
+     */
+    public final int getGraze()
+    {
+        return graze;
     }
 
     /**
@@ -403,6 +440,7 @@ public class CharReimu extends Entity
     private int     lives        = 3;
     private int     bombs        = 2;
     private int     power        = 0;
+    private int     graze        = 0;
     private float   speed        = .0f;
     private float   maximalSpeed = 10.f;
     private float   direction    = -400.0f;
