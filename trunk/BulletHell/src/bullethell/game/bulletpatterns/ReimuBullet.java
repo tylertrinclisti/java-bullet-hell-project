@@ -11,7 +11,7 @@ import bullethell.game.SpriteStore;
  */
 public class ReimuBullet extends Entity {
 	/** The vertical speed at which the players shot moves */
-	private double moveSpeed = 1;
+	private double moveSpeed;
 	/** The game in which this entity exists */
 	private Game game = Game.getInstance();
 	/** True if this shot has been "used", i.e. its hit something */
