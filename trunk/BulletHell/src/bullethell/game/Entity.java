@@ -60,8 +60,6 @@ public abstract class Entity implements Collidable{
                 }else{
                     this.sprite = null;
                 }
-                x = 0;
-                y = 0;
         }
 
 	/**
