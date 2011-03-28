@@ -14,7 +14,6 @@ import bullethell.powerups.SmallPowerUp;
 public class GreenFairy1 extends Entity {
     private double moveSpeed = 0;
     private Game game = Game.getInstance();
-    private boolean alive = true;
     private long currentTime = 0;
     private long nextSprite = 0L;
     /** The fairys life */

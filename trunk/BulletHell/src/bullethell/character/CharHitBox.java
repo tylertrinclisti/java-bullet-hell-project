@@ -10,12 +10,8 @@ import bullethell.game.SpriteStore;
  * @author Daniel
  */
 public class CharHitBox extends Entity {
-	/** The vertical speed at which the players shot moves */
-	private double moveSpeed = 1;
 	/** The game in which this entity exists */
 	private Game game = Game.getInstance();
-	/** True if this shot has been "used", i.e. its hit something */
-	private boolean used = false;
 
 	/**
 	 * Create a new hitbox for the player
@@ -35,12 +31,13 @@ public class CharHitBox extends Entity {
 	public void move(long delta) {
 		// proceed with normal move
 		super.move(delta);
-                x = Game.getInstance().getCharacter().getX() + (Game.getInstance().getCharacter().getSprite().getWidth() / 2) - 4;
-                y = Game.getInstance().getCharacter().getY() + (Game.getInstance().getCharacter().getSprite().getHeight() / 2) - 1;
-                if(game.getKeyPressed(5)){
-                    sprite = SpriteStore.get().getSprite("sprites/CharHitBox.png");
-                }else{
-                    sprite = SpriteStore.get().getSprite("sprites/CharHitBoxempty.png");
+                x = game.getCharacter().getX() + (game.getCharacter().getSprite().getWidth() / 2) - 4;
+                y = game.getCharacter().getY() + (game.getCharacter().getSprite().getHeight() / 2) - 1;
+                sprite = SpriteStore.get().getSprite("sprites/CharHitBoxempty.png");
+                if (game.getKeyPressed(5)){
+                    if(!(game.getGameTime() < game.getCharacter().getInvincibility() - 2000)){
+                        sprite = SpriteStore.get().getSprite("sprites/CharHitBox.png");
+                    }
                 }
 	}
 
