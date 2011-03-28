@@ -118,8 +118,15 @@ public class fairyMove {
                         }else if(color == 4){
                             bulletSprite = "sprites/fairyRBullet_1,png";
                         }
+                        int speed = 15;
+                        int speeds;
                         for(int i = 1; i < 21; i++){
-                            Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, 18*i, -300));
+                            if(i < 7 || i > 16){
+                                speeds = speed;
+                            }else{
+                                speeds = -speed;
+                            }
+                            Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, 18*i, speeds*i));
                         }
                         done = true;
                     }else{
