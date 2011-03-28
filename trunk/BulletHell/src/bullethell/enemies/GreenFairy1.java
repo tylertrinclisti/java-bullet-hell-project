@@ -20,6 +20,7 @@ public class GreenFairy1 extends Entity {
     private int health = 9;
     /** Keeps track of which way the sprites will change */
     private boolean up = false;
+    private boolean inside = false;
 
     /**
      * Creates new fairy
@@ -40,17 +41,25 @@ public class GreenFairy1 extends Entity {
     public void move(long delta) {
         // swap over horizontal movement
         super.move(delta);
-        if (y < (game.getHeight() - game.getHeight()) || health <= 0) {
+
+        /**
+         * When the fairy is defeated, it will drop a random number of powerups
+         */
+        if (health <= 0) {
             for(int i = 0; i < 5; i++){
-                game.addEntity(new SmallPowerUp(Game.GAME_WIDTH / 2, Game.GAME_HEIGHT / 2));
+                game.addEntity(new SmallPowerUp((int) x, (int) y));
                 if(Math.random() >= 0.3 && i == 0){
                     i = 3;
                 }
             }
             game.removeEntity(this);
         }
-        if(Game.getInstance().getGameTime() > nextSprite){
-            nextSprite = Game.getInstance().getGameTime() + 80;
+
+        /**
+         * Fairy sprite change
+         */
+        if(game.getGameTime() > nextSprite){
+            nextSprite = game.getGameTime() + 80;
             if(this.sprite == SpriteStore.get().getSprite("sprites/fairyG_1.png")){
                 setImage("sprites/fairyG_2.png");
                 up = false;
@@ -70,6 +79,17 @@ public class GreenFairy1 extends Entity {
                 setImage("sprites/fairyG_3.png");
                 up = true;
             }
+        }
+
+        /**
+         * Checks if the fairy has entered the screen. If it has, remove it
+         * if it leaves the screen again
+         */
+        if((x < game.getWidth() + 60 && y < game.getHeight() + 60) && (x >= -60 && y >= -60) && inside == false){
+            inside = true;
+        }
+        if((x > game.getWidth() + 60 || x <= -60 || y > game.getHeight() + 60 || y <= -60) && inside == true){
+            game.removeEntity(this);
         }
     }
 
