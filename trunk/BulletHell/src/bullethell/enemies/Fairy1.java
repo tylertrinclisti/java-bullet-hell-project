@@ -25,6 +25,7 @@ public class Fairy1 extends Entity {
     private int color = 1;
     /** Move pattern for the fairy. See fairyMove.java */
     private int movePattern = 1;
+    private fairyMove fairyMove = new fairyMove();
 
     /**
      * Creates new fairy
@@ -56,8 +57,8 @@ public class Fairy1 extends Entity {
         // swap over horizontal movement
         super.move(delta);
 
-        dx = fairyMove.getMove(true, movePattern, startTime, false);
-        dy = fairyMove.getMove(false, movePattern, startTime, false);
+        dx = fairyMove.getMove(true, movePattern, startTime, false, (int) x, (int) y, color);
+        dy = fairyMove.getMove(false, movePattern, startTime, false, (int) x, (int) y, color);
 
         /**
          * When the fairy is defeated, it will drop a random number of powerups
@@ -170,10 +171,8 @@ public class Fairy1 extends Entity {
          */
         if((x < game.getWidth() + sprite.getWidth() + 1 && y < game.getHeight() + sprite.getHeight() + 1) && (x >= -sprite.getWidth() - 1 && y >= -sprite.getHeight() - 1) && !inside){
             inside = true;
-            System.out.println("inside");
         }
         if((x > game.getWidth() + sprite.getWidth() + 1 || x <= -sprite.getWidth() - 1 || y > game.getHeight() + sprite.getHeight() + 1 || y <= -sprite.getHeight() - 1) && inside){
-            System.out.println("outside");
             game.removeEntity(this);
         }
     }

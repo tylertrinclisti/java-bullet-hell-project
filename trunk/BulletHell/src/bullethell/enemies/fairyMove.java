@@ -1,12 +1,17 @@
 package bullethell.enemies;
+import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.game.SpriteStore;
+import bullethell.game.bulletpatterns.*;
 
 /**
  *
  * @author Daniel
  */
 public class fairyMove {
+
+    private long waitTime = 0L;
+    private boolean done = false;
 
     /**
      * Returns the starting position of the fairy based on the movePattern chosed
@@ -28,17 +33,17 @@ public class fairyMove {
      * @return The start cordinate for the fairy for either X or Y in a int.
      * If movePattern is a number not specified in getStartPos return will be 0.
      */
-    public static int getStartPos (boolean x, int movePattern, boolean side){
+    public int getStartPos (boolean x, int movePattern, boolean side){
         if(movePattern == 1){
             if(x){
                 int value = (int) (Game.getInstance().getWidth() * Math.random());
                 if(value < SpriteStore.get().getSprite("sprites/fairyG_1.png").getWidth() * 2){
                     value = SpriteStore.get().getSprite("sprites/fairyG_1.png").getWidth() * 2;
+                }else if(value > Game.getInstance().getWidth() - (SpriteStore.get().getSprite("sprites/fairyG_1.png").getWidth() * 2)){
+                    value = Game.getInstance().getWidth() - (SpriteStore.get().getSprite("sprites/fairyG_1.png").getWidth() * 2);
                 }
-                System.out.println(value);
                 return value;
             }else{
-                System.out.println(-SpriteStore.get().getSprite("sprites/fairyG_1.png").getHeight());
                 return -SpriteStore.get().getSprite("sprites/fairyG_1.png").getHeight();
             }
         }else if(movePattern == 2){
@@ -80,18 +85,49 @@ public class fairyMove {
      * 3 =
      * 4 =
      * 5 =
-     * @param startTime The time the pattern started
+     * @param startTime The time the pattern started, it is not always relevant.
      * @param side Which side of the screen the pattern started at, it is
      * not always relevant.
+     * @param x the current X the fairy is position at.
+     * @param y the current Y the fairy is position at.
+     * @param color Fairy colors: 1=Green 2=Blue 3=Yelow 4=Red
      * @return The speed for the fairy for either X or Y in a int.
      * If movePattern is a number not specified in getStartPos return will be 0.
      */
-    public static int getMove (boolean dx, int movePattern, long startTime, boolean side){
+    public int getMove (boolean dx, int movePattern, long startTime, boolean side, int x, int y, int color){
         if(movePattern == 1){
             if(dx){
                 return 0;
             }else{
-                return 100;
+                if(y < Game.getInstance().getHeight() / 8){
+                    if((Game.getInstance().getHeight() / 7) - y > 100){
+                        return 100;
+                    }else{
+                        return (Game.getInstance().getHeight() / 7) - (y / 2);
+                    }
+                }else if(y < Game.getInstance().getHeight() / 7 && y > (Game.getInstance().getHeight() / 7) - SpriteStore.get().getSprite("sprites/fairyG_1.png").getHeight() && !done){
+                    if (waitTime == 0L){
+                        waitTime = Game.getInstance().getGameTime();
+                    }
+                    if (waitTime < Game.getInstance().getGameTime() - 1000){
+                        String bulletSprite = "sprites/fairyGBullet_1.png";
+                        if(color == 2){
+                            bulletSprite = "sprites/fairyBBullet_1.png";
+                        }else if(color == 3){
+                            bulletSprite = "sprites/fairyYBullet_1.png";
+                        }else if(color == 4){
+                            bulletSprite = "sprites/fairyRBullet_1,png";
+                        }
+                        for(int i = 1; i < 21; i++){
+                            Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, 18*i, -300));
+                        }
+                        done = true;
+                    }else{
+                        return 0;
+                    }
+                }else if(done){
+                    return 100;
+                }
             }
         }else if(movePattern == 2){
             if(dx){
