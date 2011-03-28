@@ -6,15 +6,15 @@ import bullethell.game.Game;
 import bullethell.game.SpriteStore;
 import bullethell.game.bulletpatterns.ReimuBullet;
 import bullethell.powerups.SmallPowerUp;
+import bullethell.enemies.fairyMove;
 
 /**
  *
  * @author Jollepoker
  */
 public class Fairy1 extends Entity {
-    private double moveSpeed = 0;
     private Game game = Game.getInstance();
-    private long currentTime = 0;
+    private long startTime = 0L;
     private long nextSprite = 0L;
     /** The fairys life */
     private int health = 9;
@@ -23,6 +23,8 @@ public class Fairy1 extends Entity {
     private boolean inside = false;
     /** Color of the fairy, default green */
     private int color = 1;
+    /** Move pattern for the fairy. See fairyMove.java */
+    private int movePattern = 1;
 
     /**
      * Creates new fairy
@@ -31,13 +33,8 @@ public class Fairy1 extends Entity {
      * @param y Where the fairy spawns on the vertical plane
      * @param right If the fairy will start from the right or left
      */
-    public Fairy1(int x, int y, boolean right, int color) {
-        super("sprites/fairyG_1.png",x,y);
-        if(!right){
-            dx = moveSpeed;
-        }else{
-            dx = -moveSpeed;
-        }
+    public Fairy1(int color, int movePattern) {
+        super("sprites/fairyG_1.png");
         if(color > 4 || color < 1){
             color = 1;
         }
@@ -49,11 +46,18 @@ public class Fairy1 extends Entity {
             setImage("sprites/fairyR_1.png");
         }
         this.color = color;
+        this.movePattern = movePattern;
+        this.x = fairyMove.getStartPos(true, this.movePattern);
+        this.y = fairyMove.getStartPos(false, this.movePattern);
+        startTime = Game.getInstance().getGameTime();
     }
 
     public void move(long delta) {
         // swap over horizontal movement
         super.move(delta);
+
+        dx = fairyMove.getMove(true, movePattern, startTime);
+        dy = fairyMove.getMove(false, movePattern, startTime);
 
         /**
          * When the fairy is defeated, it will drop a random number of powerups
