@@ -1,5 +1,6 @@
 package bullethell.game.bulletpatterns;
 
+import bullethell.character.CharHitBox;
 import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.game.SpriteStore;
@@ -42,7 +43,7 @@ public class FairyBullet1 extends Entity {
 		// proceed with normal move
 		super.move(delta);
 		// if we shot off the screen or if the bullet has hit something, remove ourselfs
-		if (y < (game.getHeight() - game.getHeight()) || used) {
+		if ((x > game.getWidth() + sprite.getWidth() + 1 || x <= -sprite.getWidth() - 1 || y > game.getHeight() + sprite.getHeight() + 1 || y <= -sprite.getHeight() - 1) || used) {
 			game.removeEntity(this);
 		}
 	}
@@ -58,6 +59,10 @@ public class FairyBullet1 extends Entity {
 	 * @parma other The other entity with which we've collided
 	 */
 	public void collidedWith(Entity other) {
-
+            /** If the bullet collides with the players hitbox, make the player lose one life */
+            if (other instanceof CharHitBox) {
+                game.getCharacter().loseLife();
+                used = true;
+            }
 	}
 }
