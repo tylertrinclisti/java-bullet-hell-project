@@ -49,6 +49,21 @@ public abstract class Entity implements Collidable{
 		y = 0;
 	}
 
+        /**
+	 * Construct a entity based on a sprite image.
+	 * 
+	 * @param ref The reference to the image to be displayed for this entity
+	 */
+        public Entity(String ref) {
+                if (!ref.equals("")){
+			this.sprite = SpriteStore.get().getSprite(ref);
+                }else{
+                    this.sprite = null;
+                }
+                x = 0;
+                y = 0;
+        }
+
 	/**
 	 * Construct a entity based on a sprite image and a location.
 	 * 

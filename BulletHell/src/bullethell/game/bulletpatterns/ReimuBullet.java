@@ -26,7 +26,7 @@ public class ReimuBullet extends Entity {
          * @param direction The direction of the shot
          * @param speed The speed of the shot
 	 */
-	public ReimuBullet(String sprite, int x,int y, int direction, int speed) {
+	public ReimuBullet(String sprite, int x, int y, int direction, int speed) {
             super(sprite,(x - (SpriteStore.get().getSprite("sprites/reimuShot1.jpg").getWidth() / 2)),y);
             moveSpeed = speed;
             dy = moveSpeed;
