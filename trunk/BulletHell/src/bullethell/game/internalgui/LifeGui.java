@@ -44,7 +44,7 @@ public class LifeGui extends GuiItem
 			chr = new char[] {'D', 'E', 'A', 'D', ' ', 'P', 'A', 'R', 'R', 'O', 'T'};
 		}
 
-		g.drawString(new String(chr), Game.GAME_WIDTH - Game.GAME_WIDTH + (g.getFontMetrics().getHeight()), Game.GAME_HEIGHT - (g.getFontMetrics().getHeight() * 3));
+		g.drawString(new String(chr), Game.GAME_WIDTH - Game.GAME_WIDTH + (g.getFontMetrics().getHeight()), Game.GAME_HEIGHT - (g.getFontMetrics().getHeight() * 4));
 
 		g.setFont(oldfont);
 	}

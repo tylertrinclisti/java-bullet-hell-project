@@ -18,7 +18,7 @@ public class GreenFairy1 extends Entity {
     private long currentTime = 0;
     private long nextSprite = 0L;
     /** The fairys life */
-    private int health = 10;
+    private int health = 9;
     /** Keeps track of which way the sprites will change */
     private boolean up = false;
 

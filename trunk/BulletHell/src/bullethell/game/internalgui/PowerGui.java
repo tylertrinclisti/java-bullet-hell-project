@@ -33,7 +33,7 @@ public class PowerGui extends GuiItem
 			chr = new char[] {'P', 'o', 'w', 'e', 'r', ':', ' ', 'M', 'A', 'X'};
 		}
 
-		g.drawString(new String(chr), Game.GAME_WIDTH - Game.GAME_WIDTH + (g.getFontMetrics().getHeight()), Game.GAME_HEIGHT - g.getFontMetrics().getHeight());
+		g.drawString(new String(chr), Game.GAME_WIDTH - Game.GAME_WIDTH + (g.getFontMetrics().getHeight()), Game.GAME_HEIGHT - (g.getFontMetrics().getHeight() * 2));
 
 		g.setFont(oldfont);
 	}
