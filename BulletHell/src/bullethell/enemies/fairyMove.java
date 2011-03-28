@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package bullethell.enemies;
+import bullethell.game.Game;
+import bullethell.game.SpriteStore;
 
 /**
  *
- * @author Jollepoker
+ * @author Daniel
  */
 public class fairyMove {
 
@@ -17,19 +14,32 @@ public class fairyMove {
      * @param x True if to send X, false if to send Y
      * @param movePattern Number of the movePattern the fairy will use
      * movePatterns:
-     * 1 =
+     * 1 = Start from the top stop at 1/8 of the screen from the top and shot bullets
+     * in all directions once, then continue down the screen.
      * 2 = 
      * 3 =
      * 4 =
      * 5 =
-     * @return The start cordinate for the fairy for either X or Y in a double.
+     * @param side Which side of the screen the pattern should start at, it is
+     * not always relevant.
+     * side:
+     * true = left
+     * false = right
+     * @return The start cordinate for the fairy for either X or Y in a int.
+     * If movePattern is a number not specified in getStartPos return will be 0.
      */
-    public static int getStartPos (boolean x, int movePattern){
+    public static int getStartPos (boolean x, int movePattern, boolean side){
         if(movePattern == 1){
             if(x){
-                return 200;
+                int value = (int) (Game.getInstance().getWidth() * Math.random());
+                if(value < SpriteStore.get().getSprite("sprites/fairyG_1.png").getWidth() * 2){
+                    value = SpriteStore.get().getSprite("sprites/fairyG_1.png").getWidth() * 2;
+                }
+                System.out.println(value);
+                return value;
             }else{
-                return 100;
+                System.out.println(-SpriteStore.get().getSprite("sprites/fairyG_1.png").getHeight());
+                return -SpriteStore.get().getSprite("sprites/fairyG_1.png").getHeight();
             }
         }else if(movePattern == 2){
             if(x){
@@ -71,14 +81,17 @@ public class fairyMove {
      * 4 =
      * 5 =
      * @param startTime The time the pattern started
+     * @param side Which side of the screen the pattern started at, it is
+     * not always relevant.
      * @return The speed for the fairy for either X or Y in a int.
+     * If movePattern is a number not specified in getStartPos return will be 0.
      */
-    public static int getMove (boolean dx, int movePattern, long startTime){
+    public static int getMove (boolean dx, int movePattern, long startTime, boolean side){
         if(movePattern == 1){
             if(dx){
                 return 0;
             }else{
-                return 0;
+                return 100;
             }
         }else if(movePattern == 2){
             if(dx){

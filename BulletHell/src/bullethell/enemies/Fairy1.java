@@ -47,8 +47,8 @@ public class Fairy1 extends Entity {
         }
         this.color = color;
         this.movePattern = movePattern;
-        this.x = fairyMove.getStartPos(true, this.movePattern);
-        this.y = fairyMove.getStartPos(false, this.movePattern);
+        this.x = fairyMove.getStartPos(true, movePattern, false);
+        this.y = fairyMove.getStartPos(false, movePattern, false);
         startTime = Game.getInstance().getGameTime();
     }
 
@@ -56,8 +56,8 @@ public class Fairy1 extends Entity {
         // swap over horizontal movement
         super.move(delta);
 
-        dx = fairyMove.getMove(true, movePattern, startTime);
-        dy = fairyMove.getMove(false, movePattern, startTime);
+        dx = fairyMove.getMove(true, movePattern, startTime, false);
+        dy = fairyMove.getMove(false, movePattern, startTime, false);
 
         /**
          * When the fairy is defeated, it will drop a random number of powerups
@@ -168,10 +168,12 @@ public class Fairy1 extends Entity {
          * Checks if the fairy has entered the screen. If it has, remove it
          * if it leaves the screen again
          */
-        if((x < game.getWidth() + sprite.getWidth() && y < game.getHeight() + sprite.getHeight()) && (x >= -sprite.getWidth() && y >= -sprite.getHeight()) && !inside){
+        if((x < game.getWidth() + sprite.getWidth() + 1 && y < game.getHeight() + sprite.getHeight() + 1) && (x >= -sprite.getWidth() - 1 && y >= -sprite.getHeight() - 1) && !inside){
             inside = true;
+            System.out.println("inside");
         }
-        if((x > game.getWidth() + sprite.getWidth() || x <= -sprite.getWidth() || y > game.getHeight() + sprite.getHeight() || y <= -sprite.getHeight()) && inside){
+        if((x > game.getWidth() + sprite.getWidth() + 1 || x <= -sprite.getWidth() - 1 || y > game.getHeight() + sprite.getHeight() + 1 || y <= -sprite.getHeight() - 1) && inside){
+            System.out.println("outside");
             game.removeEntity(this);
         }
     }
