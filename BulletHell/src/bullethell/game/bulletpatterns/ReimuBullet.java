@@ -26,8 +26,8 @@ public class ReimuBullet extends Entity {
          * @param direction The direction of the shot
          * @param speed The speed of the shot
 	 */
-	public ReimuBullet(String sprite, int x, int y, int direction, int speed) {
-            super(sprite,(x - (SpriteStore.get().getSprite("sprites/reimuShot1.jpg").getWidth() / 2)),y);
+	public ReimuBullet(int x, int y, int direction, int speed) {
+            super("sprites/reimushot1.jpg",(x - (SpriteStore.get().getSprite("sprites/reimuShot1.jpg").getWidth() / 2)),y);
             moveSpeed = speed;
             dy = moveSpeed;
             dx = Math.sin(Math.toRadians(-direction)) * moveSpeed;
@@ -58,8 +58,6 @@ public class ReimuBullet extends Entity {
 	 * @parma other The other entity with which we've collided
 	 */
 	public void collidedWith(Entity other) {
-            /**
-             * Enemy collision code here
-             */
+
 	}
 }

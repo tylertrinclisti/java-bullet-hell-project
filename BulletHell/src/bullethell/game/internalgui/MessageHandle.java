@@ -53,7 +53,7 @@ public class MessageHandle extends GuiItem
 			if (alpha <= 255 && alpha > 0)
 			{
 				g.setColor(new Color(0, 0, 0, alpha));
-				g.drawString(msgs[i].str, 19, 19 + 20 * i);
+				g.drawString(msgs[i].str,(Game.GAME_WIDTH-g.getFontMetrics().stringWidth(msgs[i].str))/2 - 1,(Game.GAME_HEIGHT / 2 - 25) - (Game.GAME_HEIGHT / 2 - 25 * i) - 1);
 				g.setColor(new Color(255, 255, 255, alpha));
 				g.drawString(msgs[i].str,(Game.GAME_WIDTH-g.getFontMetrics().stringWidth(msgs[i].str))/2,(Game.GAME_HEIGHT / 2 - 25) - (Game.GAME_HEIGHT / 2 - 25 * i));
 			}
