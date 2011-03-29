@@ -62,17 +62,19 @@ public class FairyBullet1 extends Entity {
      * @parma other The other entity with which we've collided
      */
     public void collidedWith(Entity other) {
-        /** If the bullet collides with the players hitbox, make the player lose one life */
-        if (other instanceof CharHitBox) {
-            game.getCharacter().loseLife();
-            used = true;
-        }
+        if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility()){
+            /** If the bullet collides with the players hitbox, make the player lose one life */
+            if (other instanceof CharHitBox) {
+                game.getCharacter().loseLife();
+                used = true;
+            }
 
-        /** If the bullet collides with the players sprite, make the graze count go up by 1 */
-        if (!grazed){
-            if (other instanceof CharReimu) {
-                game.getCharacter().addGraze(1);
-                grazed = true;
+            /** If the bullet collides with the players sprite, make the graze count go up by 1 */
+            if (!grazed){
+                if (other instanceof CharReimu) {
+                    game.getCharacter().addGraze(1);
+                    grazed = true;
+                }
             }
         }
     }

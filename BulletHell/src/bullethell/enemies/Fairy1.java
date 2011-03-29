@@ -184,8 +184,10 @@ public class Fairy1 extends Entity {
      */
     public void collidedWith(Entity other) {
         /** If the fairy collides with the players hitbox, make the player lose one life */
-        if (other instanceof CharHitBox) {
-            game.getCharacter().loseLife();
+        if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility()){
+            if (other instanceof CharHitBox) {
+                game.getCharacter().loseLife();
+            }
         }
         /** If the fairy collides with the player projectile, make the fairy lose health */
         if (other instanceof ReimuBullet) {
