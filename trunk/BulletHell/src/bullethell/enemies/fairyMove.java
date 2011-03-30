@@ -118,18 +118,17 @@ public class fairyMove {
                         }else if(color == 4){
                             bulletSprite = "sprites/fairyRBullet_1,png";
                         }
-                        int speed = 15;
-                        int speeds;
+                        int dxValue;
+                        int dyValue;
+                        int speed = 300;
                         for(int i = 1; i < 21; i++){
-                            if(i < 7 || i > 16){
-                                speeds = speed;
-                            }else{
-                                speeds = -speed;
-                            }
+                            dxValue = (int) (15 * Math.cos(Math.toRadians(4.5 + (18 * i))));
+                            dyValue = (int) (15 * Math.sin(Math.toRadians(4.5 + (18 * i))));
+                            System.out.println(dxValue + ";" + dyValue);
 
                             /** Don't send out bullets if the player just lost a life */
                             if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility() - 2000){
-                                Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, 18*i, speeds^i));
+                                Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, 18*i, dxValue, dyValue));
                             }
                         }
                         done = true;
