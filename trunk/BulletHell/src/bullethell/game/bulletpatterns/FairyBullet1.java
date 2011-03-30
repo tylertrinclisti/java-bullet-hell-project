@@ -25,10 +25,11 @@ public class FairyBullet1 extends Entity {
      * @param sprite The sprite representing this shot
      * @param x The initial x location of the shot
      * @param y The initial y location of the shot
-     * @param direction The direction of the shot
+     * @param dx The initial speed in x
+     * @param dy The initial speed in y
      * @param speed The speed of the shot
      */
-    public FairyBullet1(String sprite, int x, int y, int direction, int dx, int dy) {
+    public FairyBullet1(String sprite, int x, int y, int dx, int dy) {
         super(sprite,x,y);
         this.dy = dy;
         this.dx = dx;
@@ -49,10 +50,10 @@ public class FairyBullet1 extends Entity {
 
             /** If the bullet collides with the players sprite, make the graze count go up by 1 */
             if (!grazed){
-                if((x > game.getHitBox().getX() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getWidth() / 2) - 40  &&
-                    x < game.getHitBox().getX() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getWidth() / 2) + 40) &&
-                   (y > game.getHitBox().getY() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getHeight() / 2) - 40 &&
-                    y < game.getHitBox().getY() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getHeight() / 2) + 40)){
+                if((x > game.getHitBox().getX() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getWidth() / 2) - 30  &&
+                    x < game.getHitBox().getX() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getWidth() / 2) + 30) &&
+                   (y > game.getHitBox().getY() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getHeight() / 2) - 30 &&
+                    y < game.getHitBox().getY() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getHeight() / 2) + 30)){
                     game.getCharacter().addGraze(1);
                     grazed = true;
                 }

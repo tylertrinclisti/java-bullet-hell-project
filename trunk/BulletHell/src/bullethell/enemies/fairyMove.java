@@ -19,8 +19,7 @@ public class fairyMove {
      * @param x True if to send X, false if to send Y
      * @param movePattern Number of the movePattern the fairy will use
      * movePatterns:
-     * 1 = Start from the top stop at 1/8 of the screen from the top and shot bullets
-     * in all directions once, then continue down the screen.
+     * 1 = From top, stop near top, release 360 degree 20 bullets, continue down screen.
      * 2 = 
      * 3 =
      * 4 =
@@ -80,7 +79,7 @@ public class fairyMove {
      * @param dx True if to send X, false if to send Y
      * @param movePattern Number of the movePattern the fairy will use
      * movePatterns:
-     * 1 =
+     * 1 = From top, stop near top, release 360 degree 20 bullets, continue down screen.
      * 2 =
      * 3 =
      * 4 =
@@ -91,10 +90,11 @@ public class fairyMove {
      * @param x the current X the fairy is position at.
      * @param y the current Y the fairy is position at.
      * @param color Fairy colors: 1=Green 2=Blue 3=Yelow 4=Red
+     * @param bulletSpeed The speed the bullets will travel in.
      * @return The speed for the fairy for either X or Y in a int.
      * If movePattern is a number not specified in getStartPos return will be 0.
      */
-    public int getMove (boolean dx, int movePattern, long startTime, boolean side, int x, int y, int color){
+    public int getMove (boolean dx, int movePattern, long startTime, boolean side, int x, int y, int color, int bulletSpeed){
         if(movePattern == 1){
             if(dx){
                 return 0;
@@ -120,15 +120,13 @@ public class fairyMove {
                         }
                         int dxValue;
                         int dyValue;
-                        int speed = 300;
                         for(int i = 1; i < 21; i++){
-                            dxValue = (int) (15 * Math.cos(Math.toRadians(4.5 + (18 * i))));
-                            dyValue = (int) (15 * Math.sin(Math.toRadians(4.5 + (18 * i))));
-                            System.out.println(dxValue + ";" + dyValue);
+                            dxValue = (int) (bulletSpeed * Math.cos(Math.toRadians(4.5 + (18 * i))));
+                            dyValue = (int) (bulletSpeed * Math.sin(Math.toRadians(4.5 + (18 * i))));
 
                             /** Don't send out bullets if the player just lost a life */
                             if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility() - 2000){
-                                Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, 18*i, dxValue, dyValue));
+                                Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, dxValue, dyValue));
                             }
                         }
                         done = true;

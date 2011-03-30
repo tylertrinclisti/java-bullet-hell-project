@@ -57,8 +57,8 @@ public class Fairy1 extends Entity {
         // swap over horizontal movement
         super.move(delta);
 
-        dx = fairyMove.getMove(true, movePattern, startTime, false, (int) x, (int) y, color);
-        dy = fairyMove.getMove(false, movePattern, startTime, false, (int) x, (int) y, color);
+        dx = fairyMove.getMove(true, movePattern, startTime, false, (int) x, (int) y, color, 300);
+        dy = fairyMove.getMove(false, movePattern, startTime, false, (int) x, (int) y, color, 300);
 
         /**
          * When the fairy is defeated, it will drop a random number of powerups
