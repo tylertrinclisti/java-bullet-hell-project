@@ -12,8 +12,6 @@ import bullethell.game.SpriteStore;
  * @author Daniel
  */
 public class FairyBullet1 extends Entity {
-    /** The vertical speed at which the players shot moves */
-    private double moveSpeed;
     /** The game in which this entity exists */
     private Game game = Game.getInstance();
     /** True if this shot has been "used", i.e. its hit something */
@@ -30,11 +28,10 @@ public class FairyBullet1 extends Entity {
      * @param direction The direction of the shot
      * @param speed The speed of the shot
      */
-    public FairyBullet1(String sprite, int x, int y, int direction, int speed) {
+    public FairyBullet1(String sprite, int x, int y, int direction, int dx, int dy) {
         super(sprite,x,y);
-        moveSpeed = speed;
-        dy = moveSpeed;
-        dx = Math.sin(Math.toRadians(-direction)) * moveSpeed;
+        this.dy = dy;
+        this.dx = dx;
     }
 
     /**
