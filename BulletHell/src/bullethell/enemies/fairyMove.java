@@ -126,7 +126,11 @@ public class fairyMove {
                             }else{
                                 speeds = -speed;
                             }
-                            Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, 18*i, speeds*i));
+
+                            /** Don't send out bullets if the player just lost a life */
+                            if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility() - 2000){
+                                Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, 18*i, speeds^i));
+                            }
                         }
                         done = true;
                     }else{

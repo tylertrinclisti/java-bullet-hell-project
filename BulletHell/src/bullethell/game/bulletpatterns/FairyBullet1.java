@@ -49,6 +49,17 @@ public class FairyBullet1 extends Entity {
             if ((x > game.getWidth() + sprite.getWidth() + 1 || x <= -sprite.getWidth() - 1 || y > game.getHeight() + sprite.getHeight() + 1 || y <= -sprite.getHeight() - 1) || used) {
                     game.removeEntity(this);
             }
+
+            /** If the bullet collides with the players sprite, make the graze count go up by 1 */
+            if (!grazed){
+                if((x > game.getHitBox().getX() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getWidth() / 2) - 40  &&
+                    x < game.getHitBox().getX() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getWidth() / 2) + 40) &&
+                   (y > game.getHitBox().getY() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getHeight() / 2) - 40 &&
+                    y < game.getHitBox().getY() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getHeight() / 2) + 40)){
+                    game.getCharacter().addGraze(1);
+                    grazed = true;
+                }
+            }
     }
 
     public void used(){
@@ -67,14 +78,6 @@ public class FairyBullet1 extends Entity {
             if (other instanceof CharHitBox) {
                 game.getCharacter().loseLife();
                 used = true;
-            }
-
-            /** If the bullet collides with the players sprite, make the graze count go up by 1 */
-            if (!grazed){
-                if (other instanceof CharReimu) {
-                    game.getCharacter().addGraze(1);
-                    grazed = true;
-                }
             }
         }
     }

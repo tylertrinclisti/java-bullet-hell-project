@@ -90,7 +90,7 @@ public class LifeUp extends Entity{
             /**
              * Om poweruppen är utanför banan längst ner på y-axeln så skall den tas bort.
              */
-            if (y < (Game.getInstance().getHeight() - Game.getInstance().getHeight())) {
+            if (y > (Game.getInstance().getHeight() + this.sprite.getHeight())) {
                     Game.getInstance().removeEntity(this);
             }
         }
