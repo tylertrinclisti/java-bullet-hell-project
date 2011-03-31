@@ -55,6 +55,7 @@ public class FairyBullet1 extends Entity {
                    (y > game.getHitBox().getY() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getHeight() / 2) - 30 &&
                     y < game.getHitBox().getY() + (SpriteStore.get().getSprite("sprites/CharHitBox.png").getHeight() / 2) + 30)){
                     game.getCharacter().addGraze(1);
+                    game.addScore(10 * game.getCharacter().getGraze());
                     grazed = true;
                 }
             }

@@ -7,6 +7,7 @@ import bullethell.game.SpriteStore;
 import bullethell.game.bulletpatterns.ReimuBullet;
 import bullethell.powerups.SmallPowerUp;
 import bullethell.enemies.fairyMove;
+import bullethell.highscore.Score;
 
 /**
  *
@@ -70,6 +71,7 @@ public class Fairy1 extends Entity {
                     i = 3;
                 }
             }
+            game.addScore(1000);
             game.removeEntity(this);
         }
 
