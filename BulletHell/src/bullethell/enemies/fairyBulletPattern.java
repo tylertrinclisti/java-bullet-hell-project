@@ -32,13 +32,14 @@ public class fairyBulletPattern {
      * @param bullets The number of bullets that should be used.
      * @param color Fairy colors: 1=Green 2=Blue 3=Yelow 4=Red
      * @param bulletSpeed The speed the bullets will use.
-     * @param direction The direction the bullet will travel in, in degrees (from 0 to x), 0 is top.
+     * @param direction The direction the bullet will travel in, in degrees (from 0 to x), 0 is right.
      * 360 means that the bullets will go all around the fairy
-     * 180 means that
+     * 180 means that the bullets will go all around the bottom of the fairy
+     * -180 means that the bullets will go all around the top of the fairy
      * @return The start cordinate for the fairy for either X or Y in a int.
      * If movePattern is a number not specified in getStartPos return will be 0.
      */
-    public int BulletPattern (int bulletPattern, int x, int y, boolean side, int bullets, int color, int bulletSpeed, int direction){
+    public int BulletPattern (int bulletPattern, int x, int y, boolean side, int bullets, int color, int bulletSpeed, double direction){
         if(bulletPattern == 1){
             String bulletSprite = "sprites/fairyGBullet_1.png";
             if(color == 2){
@@ -51,13 +52,8 @@ public class fairyBulletPattern {
             double dxValue;
             double dyValue;
             for(int i = 0; i < bullets; i++){
-                if(!side){
-                    dxValue = bulletSpeed * Math.cos(Math.toRadians(((90 / bullets) + (direction / bullets)) * i));
-                    dyValue = bulletSpeed * Math.sin(Math.toRadians(((90 / bullets) + (direction / bullets)) * i));
-                }else{
-                    dxValue = bulletSpeed * Math.cos(Math.toRadians(((90 / bullets) - (direction / bullets)) * i));
-                    dyValue = bulletSpeed * Math.sin(Math.toRadians(((90 / bullets) - (direction / bullets)) * i));
-                }
+                dxValue = bulletSpeed * Math.cos(Math.toRadians((double) (direction / bullets) + ((360.0 / bullets) * i)));
+                dyValue = bulletSpeed * Math.sin(Math.toRadians((double) (direction / bullets) + ((360.0 / bullets) * i)));
                 Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, dxValue, dyValue));
             }
         }else if(bulletPattern == 2){

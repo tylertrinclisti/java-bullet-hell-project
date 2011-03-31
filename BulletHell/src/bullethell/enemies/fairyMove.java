@@ -99,7 +99,7 @@ public class fairyMove {
      * @return The speed for the fairy for either X or Y in a int.
      * If movePattern is a number not specified in getStartPos return will be 0.
      */
-    public int getMove (boolean dx, int movePattern, int bulletPattern, long startTime, boolean side, int x, int y, int color, int bullets, int bulletSpeed, int direction){
+    public int getMove (boolean dx, int movePattern, int bulletPattern, long startTime, boolean side, int x, int y, int color, int bullets, int bulletSpeed, double direction){
         if(movePattern == 1){
             if(dx){
                 return 0;

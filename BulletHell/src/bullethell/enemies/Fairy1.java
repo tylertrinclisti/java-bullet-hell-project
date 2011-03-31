@@ -31,7 +31,7 @@ public class Fairy1 extends Entity {
     /** Number of bullets the fairy will shoot out */
     private int bullets = 0;
     /** Direction around the fairy the bullets will take */
-    private int direction = 1;
+    private double direction = 1;
     /** Speed of the bullets the fairy will shoot out */
     private int bulletSpeed = 0;
     /** Which side the fairy will shot and move in */
@@ -45,7 +45,7 @@ public class Fairy1 extends Entity {
      * @param y Where the fairy spawns on the vertical plane
      * @param right If the fairy will start from the right or left
      */
-    public Fairy1(boolean side, int color, int movePattern, int bulletPattern, int bullets, int direction, int bulletSpeed) {
+    public Fairy1(boolean side, int color, int movePattern, int bulletPattern, int bullets, double direction, int bulletSpeed) {
         super("sprites/fairyG_1.png");
         if(color > 4 || color < 1){
             color = 1;
@@ -77,8 +77,8 @@ public class Fairy1 extends Entity {
         // swap over horizontal movement
         super.move(delta);
 
-        dx = fairyMove.getMove(true, movePattern, bulletPattern, startTime, false, (int) x, (int) y, color, bullets, bulletSpeed, direction);
-        dy = fairyMove.getMove(false, movePattern, bulletPattern, startTime, false, (int) x, (int) y, color, bullets, bulletSpeed, direction);
+        dx = fairyMove.getMove(true, movePattern, bulletPattern, startTime, side, (int) x, (int) y, color, bullets, bulletSpeed, direction);
+        dy = fairyMove.getMove(false, movePattern, bulletPattern, startTime, side, (int) x, (int) y, color, bullets, bulletSpeed, direction);
 
         /**
          * When the fairy is defeated, it will drop a random number of powerups
