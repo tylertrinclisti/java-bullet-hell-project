@@ -29,7 +29,7 @@ public class FairyBullet1 extends Entity {
      * @param dy The initial speed in y
      * @param speed The speed of the shot
      */
-    public FairyBullet1(String sprite, int x, int y, int dx, int dy) {
+    public FairyBullet1(String sprite, int x, int y, double dx, double dy) {
         super(sprite,x,y);
         this.dy = dy;
         this.dx = dx;
