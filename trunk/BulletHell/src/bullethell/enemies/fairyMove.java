@@ -12,6 +12,7 @@ public class fairyMove {
 
     private long waitTime = 0L;
     private boolean done = false;
+    private fairyBulletPattern bulletPattern = new fairyBulletPattern();
 
     /**
      * Returns the starting position of the fairy based on the movePattern chosed
@@ -84,17 +85,21 @@ public class fairyMove {
      * 3 =
      * 4 =
      * 5 =
+     * @param bulletPattern Number of the bulletPattern the fairy will use,
+     * more info in fairyBulletPattern.java
      * @param startTime The time the pattern started, it is not always relevant.
      * @param side Which side of the screen the pattern started at, it is
      * not always relevant.
      * @param x the current X the fairy is position at.
      * @param y the current Y the fairy is position at.
      * @param color Fairy colors: 1=Green 2=Blue 3=Yelow 4=Red
+     * @param bullets The number of bullets the fairy will shoot.
      * @param bulletSpeed The speed the bullets will travel in.
+     * @param direction The direction the bullet will travel in, in degrees (from 0 to x), 0 is top
      * @return The speed for the fairy for either X or Y in a int.
      * If movePattern is a number not specified in getStartPos return will be 0.
      */
-    public int getMove (boolean dx, int movePattern, long startTime, boolean side, int x, int y, int color, int bulletSpeed){
+    public int getMove (boolean dx, int movePattern, int bulletPattern, long startTime, boolean side, int x, int y, int color, int bullets, int bulletSpeed, int direction){
         if(movePattern == 1){
             if(dx){
                 return 0;
@@ -110,24 +115,9 @@ public class fairyMove {
                         waitTime = Game.getInstance().getGameTime();
                     }
                     if (waitTime < Game.getInstance().getGameTime() - 1000){
-                        String bulletSprite = "sprites/fairyGBullet_1.png";
-                        if(color == 2){
-                            bulletSprite = "sprites/fairyBBullet_1.png";
-                        }else if(color == 3){
-                            bulletSprite = "sprites/fairyYBullet_1.png";
-                        }else if(color == 4){
-                            bulletSprite = "sprites/fairyRBullet_1,png";
-                        }
-                        int dxValue;
-                        int dyValue;
-                        for(int i = 1; i < 21; i++){
-                            dxValue = (int) (bulletSpeed * Math.cos(Math.toRadians(4.5 + (18 * i))));
-                            dyValue = (int) (bulletSpeed * Math.sin(Math.toRadians(4.5 + (18 * i))));
-
-                            /** Don't send out bullets if the player just lost a life */
-                            if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility() - 2000){
-                                Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, dxValue, dyValue));
-                            }
+                        /** Don't send out bullets if the player just lost a life */
+                        if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility() - 2000){
+                            this.bulletPattern.BulletPattern(bulletPattern, x, y, side, bullets, color, bulletSpeed, direction);
                         }
                         done = true;
                     }else{

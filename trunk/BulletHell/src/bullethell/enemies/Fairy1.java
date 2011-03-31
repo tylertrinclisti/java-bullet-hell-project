@@ -26,6 +26,16 @@ public class Fairy1 extends Entity {
     private int color = 1;
     /** Move pattern for the fairy. See fairyMove.java */
     private int movePattern = 1;
+    /** Bullet pattern for the fairy. See fairyBullet.java */
+    private int bulletPattern = 1;
+    /** Number of bullets the fairy will shoot out */
+    private int bullets = 0;
+    /** Direction around the fairy the bullets will take */
+    private int direction = 1;
+    /** Speed of the bullets the fairy will shoot out */
+    private int bulletSpeed = 0;
+    /** Which side the fairy will shot and move in */
+    private boolean side = false;
     private fairyMove fairyMove = new fairyMove();
 
     /**
@@ -35,7 +45,7 @@ public class Fairy1 extends Entity {
      * @param y Where the fairy spawns on the vertical plane
      * @param right If the fairy will start from the right or left
      */
-    public Fairy1(int color, int movePattern) {
+    public Fairy1(boolean side, int color, int movePattern, int bulletPattern, int bullets, int direction, int bulletSpeed) {
         super("sprites/fairyG_1.png");
         if(color > 4 || color < 1){
             color = 1;
@@ -49,6 +59,15 @@ public class Fairy1 extends Entity {
         }
         this.color = color;
         this.movePattern = movePattern;
+        this.bulletPattern = bulletPattern;
+        if(bullets < 0){
+           this.bullets = 0;
+        }else{
+            this.bullets = bullets;
+        }
+        this.direction = direction;
+        this.bulletSpeed = bulletSpeed;
+        this.side = side;
         this.x = fairyMove.getStartPos(true, movePattern, false);
         this.y = fairyMove.getStartPos(false, movePattern, false);
         startTime = Game.getInstance().getGameTime();
@@ -58,8 +77,8 @@ public class Fairy1 extends Entity {
         // swap over horizontal movement
         super.move(delta);
 
-        dx = fairyMove.getMove(true, movePattern, startTime, false, (int) x, (int) y, color, 300);
-        dy = fairyMove.getMove(false, movePattern, startTime, false, (int) x, (int) y, color, 300);
+        dx = fairyMove.getMove(true, movePattern, bulletPattern, startTime, false, (int) x, (int) y, color, bullets, bulletSpeed, direction);
+        dy = fairyMove.getMove(false, movePattern, bulletPattern, startTime, false, (int) x, (int) y, color, bullets, bulletSpeed, direction);
 
         /**
          * When the fairy is defeated, it will drop a random number of powerups
