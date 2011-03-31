@@ -1,69 +1,40 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package bullethell.highscore;
 
 /**
  *
- * @author 08KarlinF
+ * @author Daniel
  */
 public class Score {
-    private String namn;
-    private int poäng = 0;
-    private int level = 0;
-
-            public void addScore(int reward){
-                if(poäng>=0){
-                setPoäng(getPoäng() + reward);
-                }
-    }
-            public void editName(String newName){
-
-
-
-            }
+    private long score = 0L;
 
     /**
-     * @return the namn
+     * Adds to the score
+     * @param score The score that should be added
      */
-    public String getNamn() {
-        return namn;
+    public void addScore(long score){
+        if(score >= 0){
+            setScore(getScore() + score);
+        }
     }
 
     /**
-     * @param namn the namn to set
+     * Resets the score
      */
-    public void setNamn(String namn) {
-        this.namn = namn;
+    public void resetScore(){
+        score = 0L;
     }
 
     /**
-     * @return the poäng
+     * @return The current score the player has
      */
-    public int getPoäng() {
-        return poäng;
+    public long getScore() {
+        return score;
     }
 
     /**
-     * @param poäng the poäng to set
+     * @param score The score that this.score should become
      */
-    public void setPoäng(int poäng) {
-        this.poäng = poäng;
-    }
-
-    /**
-     * @return the level
-     */
-    public int getLevel() {
-        return level;
-    }
-
-    /**
-     * @param level the level to set
-     */
-    public void setLevel(int level) {
-        this.level = level;
+    public void setScore(long score) {
+        this.score = score;
     }
 }

@@ -102,6 +102,7 @@ public class SmallPowerUp extends Entity{
             if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility() - 2000){
                 if(startTime < Game.getInstance().getGameTime() - 200){
                     Game.getInstance().getCharacter().addPower(5);
+                    Game.getInstance().addScore(50);
                     Game.getInstance().removeEntity(this);
                 }
             }
