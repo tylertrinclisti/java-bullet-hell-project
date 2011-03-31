@@ -34,8 +34,8 @@ public class fairyBulletPattern {
      * @param bulletSpeed The speed the bullets will use.
      * @param direction The direction the bullet will travel in, in degrees (from 0 to x), 0 is right.
      * 360 means that the bullets will go all around the fairy
-     * 180 means that the bullets will go all around the bottom of the fairy
-     * -180 means that the bullets will go all around the top of the fairy
+     * 180 means that the bullets will go all around the bottom of the fairy from right to left
+     * -180 means that the bullets will go all around the top of the fairy from right to left
      * @return The start cordinate for the fairy for either X or Y in a int.
      * If movePattern is a number not specified in getStartPos return will be 0.
      */
@@ -52,8 +52,8 @@ public class fairyBulletPattern {
             double dxValue;
             double dyValue;
             for(int i = 0; i < bullets; i++){
-                dxValue = bulletSpeed * Math.cos(Math.toRadians((double) (direction / bullets) + ((360.0 / bullets) * i)));
-                dyValue = bulletSpeed * Math.sin(Math.toRadians((double) (direction / bullets) + ((360.0 / bullets) * i)));
+                dxValue = bulletSpeed * Math.cos(Math.toRadians((double) (direction / bullets) * i));
+                dyValue = bulletSpeed * Math.sin(Math.toRadians((double) (direction / bullets) * i));
                 Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, dxValue, dyValue));
             }
         }else if(bulletPattern == 2){
