@@ -42,15 +42,26 @@ public class FullPower extends Entity{
         super.move(delta);
 
         if(collected){
-            if(x < Game.getInstance().getHitBox().getX()){
-                x += 4;
+            if(x >= Game.getInstance().getHitBox().getX() - 40 &&
+               x <= Game.getInstance().getHitBox().getX() + 40){
+                x = Game.getInstance().getHitBox().getX();
+            }else if(x < Game.getInstance().getHitBox().getX()) {
+                dx = 800;
             }else if(x > Game.getInstance().getHitBox().getX()){
-                x -= 4;
+                dx = -800;
             }
-            if(y < Game.getInstance().getHitBox().getY()){
-                y += 4;
+
+            if(y >= Game.getInstance().getHitBox().getY() - 40 &&
+               y <= Game.getInstance().getHitBox().getY() + 40){
+                y = Game.getInstance().getHitBox().getY();
+            }else if (y < Game.getInstance().getHitBox().getY()) {
+                dy = 800;
             }else if(y > Game.getInstance().getHitBox().getY()){
-                y -= 4;
+                dy = -800;
+            }
+
+            if(Game.getInstance().getCharacter().getInvincibility() > 0){
+                collected = false;
             }
         }else{
             /**
@@ -68,7 +79,7 @@ public class FullPower extends Entity{
              * Om karaktären har full power och befinner sig 1/5 ner på skärmen från
              * toppen, så kommer denna powerup att sugas till karaktären.
              */
-            if(Game.getInstance().getHitBox().getY() >= Game.getInstance().getHeight() &&
+            if(Game.getInstance().getHitBox().getY() <= Game.getInstance().getHeight() / 5 &&
                Game.getInstance().getCharacter().getPower() == 400){
                 collected = true;
             }
@@ -112,8 +123,12 @@ public class FullPower extends Entity{
         if (other instanceof CharHitBox){
             if(Game.getInstance().getGameTime() > Game.getInstance().getCharacter().getInvincibility() - 2000){
                 if(startTime < Game.getInstance().getGameTime() - 200){
-                    Game.getInstance().getCharacter().addPower(400);
-                    Game.getInstance().addScore(2500);
+                    if(Game.getInstance().getCharacter().getPower() == 400){
+                        Game.getInstance().addScore(1000);
+                    }else{
+                        Game.getInstance().getCharacter().addPower(400);
+                        Game.getInstance().addScore(300);
+                    }
                     Game.getInstance().removeEntity(this);
                 }
             }

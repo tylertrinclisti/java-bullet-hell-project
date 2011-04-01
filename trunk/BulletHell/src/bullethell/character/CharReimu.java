@@ -35,6 +35,7 @@ public class CharReimu extends Entity
         this.lives = lives;
         if(this.lives > 8){
             this.lives = 8;
+            addBombs(1);
         }else if(this.lives < 0){
             this.lives = 0;
         }

@@ -214,6 +214,7 @@ public class Fairy1 extends Entity {
         if (other instanceof ReimuBullet) {
             if(inside){
                 health -= 1;
+                Game.getInstance().addScore(3);
                 ((ReimuBullet)other).used();
             }
         }
