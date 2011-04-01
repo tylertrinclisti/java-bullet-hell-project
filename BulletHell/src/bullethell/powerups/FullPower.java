@@ -12,6 +12,7 @@ public class FullPower extends Entity{
     private int direction;
     private double moveSpeed = -200;
     private long startTime = 0L;
+    private boolean collected = false;
 
     public FullPower(int x, int y) {
         super("sprites/FullPower.png", x, y, false);
@@ -40,16 +41,7 @@ public class FullPower extends Entity{
     public void move(long delta) {
         super.move(delta);
 
-        /**
-         * Om karaktären är i närheten av poweruppen så ska den
-         * sugas till karaktären
-         */
-        if((x - Game.getInstance().getHitBox().getX() <= 40 &&
-            x - Game.getInstance().getHitBox().getX() >= -40) &&
-           (y - Game.getInstance().getHitBox().getY() <= 40 &&
-            y - Game.getInstance().getHitBox().getY() >= -40)){
-            dx = 0;
-            dy = 0;
+        if(collected){
             if(x < Game.getInstance().getHitBox().getX()){
                 x += 4;
             }else if(x > Game.getInstance().getHitBox().getX()){
@@ -61,6 +53,25 @@ public class FullPower extends Entity{
                 y -= 4;
             }
         }else{
+            /**
+             * Om karaktären är i närheten av poweruppen så ska den
+             * sugas till karaktären
+             */
+            if((x - Game.getInstance().getHitBox().getX() <= 40 &&
+                x - Game.getInstance().getHitBox().getX() >= -40) &&
+               (y - Game.getInstance().getHitBox().getY() <= 40 &&
+                y - Game.getInstance().getHitBox().getY() >= -40)){
+                collected = true;
+            }
+
+            /**
+             * Om karaktären har full power och befinner sig 1/5 ner på skärmen från
+             * toppen, så kommer denna powerup att sugas till karaktären.
+             */
+            if(Game.getInstance().getHitBox().getY() >= Game.getInstance().getHeight() &&
+               Game.getInstance().getCharacter().getPower() == 400){
+                collected = true;
+            }
             
             /**
              * Efter att poweruppen har åkt ifrån sin ursprungs punkt såpass att dy ungefär
