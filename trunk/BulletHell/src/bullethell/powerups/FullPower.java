@@ -12,7 +12,8 @@ public class FullPower extends Entity{
     private int direction;
     private double moveSpeed = -200;
     private long startTime = 0L;
-    private boolean collected = false;
+    /** If this powerup has been collected or not. 0=no 1=close 2=top of screen */
+    private int collected = 0;
 
     public FullPower(int x, int y) {
         super("sprites/FullPower.png", x, y, false);
@@ -41,7 +42,13 @@ public class FullPower extends Entity{
     public void move(long delta) {
         super.move(delta);
 
-        if(collected){
+        /**
+         * Om karaktären dör så skall poweruppen inte längre sugas till karaktären.
+         */
+        if(Game.getInstance().getCharacter().getInvincibility() - Game.getInstance().getGameTime() - 2000 > 0){
+            collected = 0;
+        }
+        if(collected == 2){
             if(x >= Game.getInstance().getHitBox().getX() - 40 &&
                x <= Game.getInstance().getHitBox().getX() + 40){
                 x = Game.getInstance().getHitBox().getX();
@@ -59,9 +66,16 @@ public class FullPower extends Entity{
             }else if(y > Game.getInstance().getHitBox().getY()){
                 dy = -800;
             }
-
-            if(Game.getInstance().getCharacter().getInvincibility() > 0){
-                collected = false;
+        }else if(collected == 1){
+            if(x < Game.getInstance().getHitBox().getX()){
+                x += 4;
+            }else if(x > Game.getInstance().getHitBox().getX()){
+                x -= 4;
+            }
+            if(y < Game.getInstance().getHitBox().getY()){
+                y += 4;
+            }else if(y > Game.getInstance().getHitBox().getY()){
+                y -= 4;
             }
         }else{
             /**
@@ -72,7 +86,7 @@ public class FullPower extends Entity{
                 x - Game.getInstance().getHitBox().getX() >= -40) &&
                (y - Game.getInstance().getHitBox().getY() <= 40 &&
                 y - Game.getInstance().getHitBox().getY() >= -40)){
-                collected = true;
+                collected = 1;
             }
 
             /**
@@ -81,9 +95,9 @@ public class FullPower extends Entity{
              */
             if(Game.getInstance().getHitBox().getY() <= Game.getInstance().getHeight() / 5 &&
                Game.getInstance().getCharacter().getPower() == 400){
-                collected = true;
+                collected = 2;
             }
-            
+
             /**
              * Efter att poweruppen har åkt ifrån sin ursprungs punkt såpass att dy ungefär
              * når 0 så skall den itne längre ha en hastighet på det horisontella planet.
