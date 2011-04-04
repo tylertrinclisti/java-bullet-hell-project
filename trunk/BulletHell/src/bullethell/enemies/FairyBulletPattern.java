@@ -18,8 +18,8 @@ public class FairyBulletPattern {
      * @param bulletPattern Number of the bulletPattern the fairy will use
      * bulletPatterns:
      * 1 = Releases bullets in a round circle.
-     * 2 =
-     * 3 =
+     * 2 = Releases a single bullet down the screen
+     * 3 = Releases a single bullet towards the player
      * 4 =
      * 5 =
      * @param x The X cordinate of the fairy
@@ -54,12 +54,33 @@ public class FairyBulletPattern {
             for(int i = 0; i < bullets; i++){
                 dxValue = bulletSpeed * Math.cos(Math.toRadians((double) (direction / bullets) * i));
                 dyValue = bulletSpeed * Math.sin(Math.toRadians((double) (direction / bullets) * i));
-                Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x, y, dxValue, dyValue));
+                Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x + (SpriteStore.get().getSprite(bulletSprite).getWidth() / 3), y, dxValue, dyValue));
             }
         }else if(bulletPattern == 2){
-
+            String bulletSprite = "sprites/fairyGBullet_1.png";
+            if(color == 2){
+                bulletSprite = "sprites/fairyBBullet_1.png";
+            }else if(color == 3){
+                bulletSprite = "sprites/fairyYBullet_1.png";
+            }else if(color == 4){
+                bulletSprite = "sprites/fairyRBullet_1,png";
+            }
+            Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x + (SpriteStore.get().getSprite(bulletSprite).getWidth() / 3), y, 0, bulletSpeed));
         }else if(bulletPattern == 3){
-
+            String bulletSprite = "sprites/fairyGBullet_1.png";
+            if(color == 2){
+                bulletSprite = "sprites/fairyBBullet_1.png";
+            }else if(color == 3){
+                bulletSprite = "sprites/fairyYBullet_1.png";
+            }else if(color == 4){
+                bulletSprite = "sprites/fairyRBullet_1,png";
+            }
+            int lx = x - Game.getInstance().getCharacter().getX();
+            int ly = y - Game.getInstance().getCharacter().getY();
+            direction = Math.atan(ly / lx);
+            double dxValue = bulletSpeed * Math.cos(Math.toRadians((double) (direction * lx)));
+            double dyValue = bulletSpeed * Math.sin(Math.toRadians((double) (direction * ly)));
+            Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x + (SpriteStore.get().getSprite(bulletSprite).getWidth() / 3), y, dxValue, dyValue));
         }else if(bulletPattern == 4){
 
         }else if(bulletPattern == 5){

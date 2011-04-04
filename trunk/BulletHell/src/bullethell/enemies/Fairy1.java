@@ -68,8 +68,8 @@ public class Fairy1 extends Entity {
         this.direction = direction;
         this.bulletSpeed = bulletSpeed;
         this.side = side;
-        this.x = fairyMove.getStartPos(true, movePattern, false);
-        this.y = fairyMove.getStartPos(false, movePattern, false);
+        this.x = fairyMove.getStartPos(true, movePattern, side);
+        this.y = fairyMove.getStartPos(false, movePattern, side);
         startTime = Game.getInstance().getGameTime();
     }
 

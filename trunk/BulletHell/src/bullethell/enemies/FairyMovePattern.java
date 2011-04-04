@@ -2,7 +2,6 @@ package bullethell.enemies;
 import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.game.SpriteStore;
-import bullethell.game.bulletpatterns.*;
 
 /**
  *
@@ -10,7 +9,9 @@ import bullethell.game.bulletpatterns.*;
  */
 public class FairyMovePattern {
 
+    private int i = 0; //Multiplyer
     private long waitTime = 0L;
+    private long waitTime2 = 0L; //Some patterns needs two waittimes.
     private boolean done = false; 
     private FairyBulletPattern bulletPattern = new FairyBulletPattern();
 
@@ -20,8 +21,8 @@ public class FairyMovePattern {
      * @param x True if to send X, false if to send Y
      * @param movePattern Number of the movePattern the fairy will use
      * movePatterns:
-     * 1 = From top, stop near top, release 360 degree 20 bullets, continue down screen.
-     * 2 = 
+     * 1 = From top, stop near top, release bullets, continue down screen.
+     * 2 = From side near top in a curve over the screen to the other side.
      * 3 =
      * 4 =
      * 5 =
@@ -48,9 +49,13 @@ public class FairyMovePattern {
             }
         }else if(movePattern == 2){
             if(x){
-                return 200;
+                if(side){
+                    return -SpriteStore.get().getSprite("sprites/fairyG_1.png").getWidth();
+                }else{
+                    return Game.getInstance().getWidth() + SpriteStore.get().getSprite("sprites/fairyG_1.png").getWidth();
+                }
             }else{
-                return 100;
+                return Game.getInstance().getHeight() / 3;
             }
         }else if(movePattern == 3){
             if(x){
@@ -73,7 +78,6 @@ public class FairyMovePattern {
         }
         return 0;
     }
-
     /**
      * Returns the speed the fairy will have on either the vertical or horizontal
      * plane based on the movePattern choosed.
@@ -90,6 +94,9 @@ public class FairyMovePattern {
      * @param startTime The time the pattern started, it is not always relevant.
      * @param side Which side of the screen the pattern started at, it is
      * not always relevant.
+     * side:
+     * true = left
+     * false = right
      * @param x the current X the fairy is position at.
      * @param y the current Y the fairy is position at.
      * @param color Fairy colors: 1=Green 2=Blue 3=Yelow 4=Red
@@ -129,9 +136,21 @@ public class FairyMovePattern {
             }
         }else if(movePattern == 2){
             if(dx){
-                return 0;
+                if(side){
+                    return 100;
+                }else{
+                    return -100;
+                }
             }else{
-                return 0;
+                if(waitTime < Game.getInstance().getGameTime() - 60){
+                    waitTime = Game.getInstance().getGameTime();
+                    i++;
+                }
+                if(waitTime2 < Game.getInstance().getGameTime() - 600){
+                    waitTime2 = Game.getInstance().getGameTime();
+                    this.bulletPattern.BulletPattern(bulletPattern, x, y, side, bullets, color, bulletSpeed, direction);
+                }
+                return (int) -(100 * Math.cos(Math.toRadians((360 / 180) * i))) / 2;
             }
         }else if(movePattern == 3){
             if(dx){
