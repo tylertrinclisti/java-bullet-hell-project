@@ -6,7 +6,7 @@ import bullethell.game.Game;
 import bullethell.game.SpriteStore;
 import bullethell.game.bulletpatterns.ReimuBullet;
 import bullethell.powerups.SmallPowerUp;
-import bullethell.enemies.fairyMove;
+import bullethell.enemies.FairyMove;
 import bullethell.highscore.Score;
 
 /**
@@ -36,7 +36,7 @@ public class Fairy1 extends Entity {
     private int bulletSpeed = 0;
     /** Which side the fairy will shot and move in */
     private boolean side = false;
-    private fairyMove fairyMove = new fairyMove();
+    private FairyMove fairyMove = new FairyMove();
 
     /**
      * Creates new fairy
