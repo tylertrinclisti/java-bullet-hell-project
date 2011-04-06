@@ -3,6 +3,8 @@ package bullethell.powerups;
 import bullethell.character.CharHitBox;
 import bullethell.game.Entity;
 import bullethell.game.Game;
+import org.duncan.Library2D.Math2D;
+import org.duncan.Library2D.Point;
 /**
  *
  * @author Daniel
@@ -10,10 +12,12 @@ import bullethell.game.Game;
 public class LifeUp extends Entity{
     
     private int direction;
+    private double playerDirection;
     private double moveSpeed = -200;
     private long startTime = 0L;
     /** If this powerup has been collected or not. 0=no 1=close 2=top of screen */
     private int collected = 0;
+    private boolean startUp = true;
 
     public LifeUp(int x, int y) {
         super("sprites/LifeUp.png", x, y, false);
@@ -49,34 +53,13 @@ public class LifeUp extends Entity{
             collected = 0;
         }
         if(collected == 2){
-            if(x >= Game.getInstance().getHitBox().getX() - 40 &&
-               x <= Game.getInstance().getHitBox().getX() + 40){
-                x = Game.getInstance().getHitBox().getX();
-            }else if(x < Game.getInstance().getHitBox().getX()) {
-                dx = 800;
-            }else if(x > Game.getInstance().getHitBox().getX()){
-                dx = -800;
-            }
-
-            if(y >= Game.getInstance().getHitBox().getY() - 40 &&
-               y <= Game.getInstance().getHitBox().getY() + 40){
-                y = Game.getInstance().getHitBox().getY();
-            }else if (y < Game.getInstance().getHitBox().getY()) {
-                dy = 800;
-            }else if(y > Game.getInstance().getHitBox().getY()){
-                dy = -800;
-            }
-        }else if(collected == 1){
-            if(x < Game.getInstance().getHitBox().getX()){
-                x += 4;
-            }else if(x > Game.getInstance().getHitBox().getX()){
-                x -= 4;
-            }
-            if(y < Game.getInstance().getHitBox().getY()){
-                y += 4;
-            }else if(y > Game.getInstance().getHitBox().getY()){
-                y -= 4;
-            }
+            playerDirection = Math2D.direction(new Point(x, y), new Point(Game.getInstance().getHitBox().getX(), Game.getInstance().getHitBox().getY()));
+            dx = 1500 * Math.cos((double) playerDirection);
+            dy = 1500 * Math.sin((double) playerDirection);
+        }else if(collected == 1 && !startUp){
+            playerDirection = Math2D.direction(new Point(x, y), new Point(Game.getInstance().getHitBox().getX(), Game.getInstance().getHitBox().getY()));
+            dx = 500 * Math.cos((double) playerDirection);
+            dy = 500 * Math.sin((double) playerDirection);
 
             /**
              * Om karaktären har full power och befinner sig 1/5 ner på skärmen från
@@ -114,6 +97,7 @@ public class LifeUp extends Entity{
              */
             if(dy > -3 && dy < 3){
                 dx = 0;
+                startUp = false;
             }
 
             /**
