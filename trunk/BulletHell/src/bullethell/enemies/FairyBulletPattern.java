@@ -3,6 +3,8 @@ import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.game.SpriteStore;
 import bullethell.game.bulletpatterns.*;
+import org.duncan.Library2D.Math2D;
+import org.duncan.Library2D.Point;
 
 /**
  *
@@ -75,11 +77,10 @@ public class FairyBulletPattern {
             }else if(color == 4){
                 bulletSprite = "sprites/fairyRBullet_1,png";
             }
-            int lx = x - Game.getInstance().getCharacter().getX();
-            int ly = y - Game.getInstance().getCharacter().getY();
-            direction = Math.atan(ly / lx);
-            double dxValue = bulletSpeed * Math.cos(Math.toRadians((double) (direction * lx)));
-            double dyValue = bulletSpeed * Math.sin(Math.toRadians((double) (direction * ly)));
+            //Emil's library är awesome! Kommer använda det mycket mer efter att jag nu upptäckt hur bra det är! :D
+            direction = Math2D.direction(new Point(x, y), new Point(Game.getInstance().getHitBox().getX(), Game.getInstance().getHitBox().getY()));
+            double dxValue = bulletSpeed * Math.cos((double) direction);
+            double dyValue = bulletSpeed * Math.sin((double) direction);
             Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x + (SpriteStore.get().getSprite(bulletSprite).getWidth() / 3), y, dxValue, dyValue));
         }else if(bulletPattern == 4){
 
