@@ -77,6 +77,16 @@ public class BombUp extends Entity{
             }else if(y > Game.getInstance().getHitBox().getY()){
                 y -= 4;
             }
+
+            /**
+             * Om karaktären har full power och befinner sig 1/5 ner på skärmen från
+             * toppen, så kommer denna powerup att sugas till karaktären snabbt istället.
+             * för långsamt.
+             */
+            if(Game.getInstance().getHitBox().getY() <= Game.getInstance().getHeight() / 5 &&
+               Game.getInstance().getCharacter().getPower() == 400){
+                collected = 2;
+            }
         }else{
             /**
              * Om karaktären är i närheten av poweruppen så ska den
