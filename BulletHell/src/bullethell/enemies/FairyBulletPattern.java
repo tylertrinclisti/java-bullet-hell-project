@@ -77,7 +77,7 @@ public class FairyBulletPattern {
             }else if(color == 4){
                 bulletSprite = "sprites/fairyRBullet_1,png";
             }
-            //Emil's library är awesome! Kommer använda det mycket mer efter att jag nu upptäckt hur bra det är! :D
+            //Emils library är awesome! Kommer använda det mycket mer efter att jag nu upptäckt hur bra det är! :D
             direction = Math2D.direction(new Point(x, y), new Point(Game.getInstance().getHitBox().getX(), Game.getInstance().getHitBox().getY()));
             double dxValue = bulletSpeed * Math.cos((double) direction);
             double dyValue = bulletSpeed * Math.sin((double) direction);
