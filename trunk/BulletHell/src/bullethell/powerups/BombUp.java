@@ -3,6 +3,7 @@ package bullethell.powerups;
 import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.character.CharHitBox;
+import bullethell.game.AePlayWave;
 import org.duncan.Library2D.Math2D;
 import org.duncan.Library2D.Point;
 /**
@@ -133,6 +134,7 @@ public class BombUp extends Entity{
                 if(startTime < Game.getInstance().getGameTime() - 200){
                     Game.getInstance().getCharacter().addBombs(1);
                     Game.getInstance().addScore(500);
+                    new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_item01.wav").start();
                     Game.getInstance().removeEntity(this);
                 }
             }

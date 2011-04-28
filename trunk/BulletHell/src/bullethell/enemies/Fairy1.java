@@ -7,6 +7,7 @@ import bullethell.game.SpriteStore;
 import bullethell.game.bulletpatterns.ReimuBullet;
 import bullethell.powerups.SmallPowerUp;
 import bullethell.enemies.FairyMovePattern;
+import bullethell.game.AePlayWave;
 import bullethell.highscore.Score;
 
 /**
@@ -91,6 +92,7 @@ public class Fairy1 extends Entity {
                 }
             }
             game.addScore(1000);
+            new AePlayWave(game.getPath() + "/src/sounds/se_enep00.wav").start();
             game.removeEntity(this);
         }
 
@@ -214,6 +216,7 @@ public class Fairy1 extends Entity {
         if (other instanceof ReimuBullet) {
             if(inside){
                 health -= 1;
+                new AePlayWave(game.getPath() + "/src/sounds/se_damage00.wav").start();
                 Game.getInstance().addScore(3);
                 ((ReimuBullet)other).used();
             }

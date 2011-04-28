@@ -3,6 +3,7 @@ package bullethell.powerups;
 import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.character.CharHitBox;
+import bullethell.game.AePlayWave;
 import org.duncan.Library2D.Math2D;
 import org.duncan.Library2D.Point;
 /**
@@ -137,6 +138,7 @@ public class FullPower extends Entity{
                         Game.getInstance().getCharacter().addPower(400);
                         Game.getInstance().addScore(300);
                     }
+                    new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_item01.wav").start();
                     Game.getInstance().removeEntity(this);
                 }
             }

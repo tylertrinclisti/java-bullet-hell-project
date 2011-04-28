@@ -3,6 +3,7 @@
  */
 package bullethell.character;
 
+import bullethell.game.AePlayWave;
 import java.awt.Point;
 import bullethell.game.Collidable;
 import bullethell.game.Entity;
@@ -99,6 +100,7 @@ public class CharReimu extends Entity
             return this;
         }
         setLives(getLives() + lives);
+        new AePlayWave(Game.getInstance().getPath() + "src/sounds/se_extend.wav").start();
 	return this;
     }
 
@@ -126,6 +128,12 @@ public class CharReimu extends Entity
         if(power <= 0){
             return this;
         }
+        if((getPower() >= 300 && power + getPower() >= 400) ||
+           (getPower() >= 200 && getPower() < 300 && power + getPower() >= 300) ||
+           (getPower() >= 100 && getPower() < 200 && power + getPower() >= 200) ||
+           (getPower() >= 0 && getPower() < 100 && power + getPower() >= 100)){
+            new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_powerup.wav").start();
+        }
         setPower(getPower() + power);
         return this;
     }
@@ -141,6 +149,7 @@ public class CharReimu extends Entity
             return this;
         }
         setGraze(getGraze() + graze);
+        new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_graze.wav").start();
         return this;
     }
 
@@ -204,6 +213,7 @@ public class CharReimu extends Entity
 		return;
             }
             setLives(getLives() - 1);
+            new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_pldead00.wav").start();
             // Can't be hurt right after just being hurt.
             nextHurt = Game.getInstance().getGameTime() + 3000;
             spriteSleep = true;
