@@ -1,4 +1,5 @@
 package bullethell.enemies;
+import bullethell.game.AePlayWave;
 import bullethell.game.Entity;
 import bullethell.game.Game;
 import bullethell.game.SpriteStore;
@@ -58,6 +59,7 @@ public class FairyBulletPattern {
                 dyValue = bulletSpeed * Math.sin(Math.toRadians((double) (direction / bullets) * i));
                 Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x + (SpriteStore.get().getSprite(bulletSprite).getWidth() / 3), y, dxValue, dyValue));
             }
+            new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_option.wav").start();
         }else if(bulletPattern == 2){
             String bulletSprite = "sprites/fairyGBullet_1.png";
             if(color == 2){
@@ -68,6 +70,7 @@ public class FairyBulletPattern {
                 bulletSprite = "sprites/fairyRBullet_1,png";
             }
             Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x + (SpriteStore.get().getSprite(bulletSprite).getWidth() / 3), y, 0, bulletSpeed));
+            new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_kira00.wav").start();
         }else if(bulletPattern == 3){
             String bulletSprite = "sprites/fairyGBullet_1.png";
             if(color == 2){
@@ -82,6 +85,7 @@ public class FairyBulletPattern {
             double dxValue = bulletSpeed * Math.cos((double) direction);
             double dyValue = bulletSpeed * Math.sin((double) direction);
             Game.getInstance().addEntity(new FairyBullet1(bulletSprite, x + (SpriteStore.get().getSprite(bulletSprite).getWidth() / 3), y, dxValue, dyValue));
+            new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_kira00.wav").start();
         }else if(bulletPattern == 4){
 
         }else if(bulletPattern == 5){

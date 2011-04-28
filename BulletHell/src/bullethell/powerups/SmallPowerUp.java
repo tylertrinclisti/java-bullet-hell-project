@@ -1,6 +1,7 @@
 package bullethell.powerups;
 
 import bullethell.character.CharHitBox;
+import bullethell.game.AePlayWave;
 import bullethell.game.Entity;
 import bullethell.game.Game;
 import org.duncan.Library2D.Math2D;
@@ -137,6 +138,7 @@ public class SmallPowerUp extends Entity{
                         Game.getInstance().getCharacter().addPower(5);
                         Game.getInstance().addScore(10);
                     }
+                    new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_item00.wav").start();
                     Game.getInstance().removeEntity(this);
                 }
             }

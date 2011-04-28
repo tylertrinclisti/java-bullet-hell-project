@@ -1,6 +1,7 @@
 package bullethell.powerups;
 
 import bullethell.character.CharHitBox;
+import bullethell.game.AePlayWave;
 import bullethell.game.Entity;
 import bullethell.game.Game;
 import org.duncan.Library2D.Math2D;
@@ -133,6 +134,7 @@ public class LifeUp extends Entity{
                if(startTime < Game.getInstance().getGameTime() - 200){
                     Game.getInstance().getCharacter().addLives(1);
                     Game.getInstance().addScore(5000);
+                    new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_item01.wav").start();
                     Game.getInstance().removeEntity(this);
                }
            }
