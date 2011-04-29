@@ -100,7 +100,7 @@ public class CharReimu extends Entity
             return this;
         }
         setLives(getLives() + lives);
-        new AePlayWave(Game.getInstance().getPath() + "src/sounds/se_extend.wav").start();
+        new AePlayWave(Game.getInstance().getPath() + "/src/sounds/se_extend.wav").start();
 	return this;
     }
 
